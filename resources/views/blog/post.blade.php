@@ -18,7 +18,23 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 ftco-animate">
-                    <h2 class="mb-3">{{ $post->post_title }}</h2>
+                    <div class="justify-content-between row">
+                        <h2 class="mb-3 ml-3">{{ $post->post_title }}</h2>
+                        @auth
+                            @if( Auth::user()->hasAnyRole(['SuperAdmin', 'Admin', 'Editor']) or $post->user_id == Auth::id() )
+                                <form class="mr-3 pr-3">
+                                    @csrf
+                                    <a class="btn btn-outline-primary p-1" href="\post/update/{{ $post->id }}">
+                                        <i class="fas fa-fw fa-edit"></i>
+                                    </a>
+                                    <button type="button" class="btn btn-outline-danger p-1"
+                                            onclick="deletePost({{ $post }}, '{{ $post->user->name }}', this.form)">
+                                        <i class="fas fa-fw fa-trash-alt"></i>
+                                    </button>
+                                </form>
+                            @endif
+                        @endauth
+                    </div>
                     <p class="text-gray-100 font-weight-light">{{ date("F j, Y ", strtotime($post->created_at)) }}</p>
                     <p class="mb-5">
                         <img src="\{{ $post->image }}" alt="{{ $post->post_title }}-image" class="img-fluid">
@@ -84,18 +100,22 @@
                                                     @endif
                                                 @endif
                                             </div>
-                                            <form class="mr-3 pr-3">
-                                                <a class="btn btn-outline-primary p-1" href="#"
-                                                   data-toggle="modal" data-target="#edit_comment_modal"
-                                                   onclick="editComment({{ $comment }})">
-                                                    <i class="fas fa-fw fa-edit"></i>
-                                                </a>
-                                                @csrf
-                                                <button type="button" class="btn btn-outline-danger p-1"
-                                                        onclick="deleteComment({{ $comment }}, this.form)">
-                                                    <i class="fas fa-fw fa-trash-alt"></i>
-                                                </button>
-                                            </form>
+                                            @auth
+                                                @if( Auth::user()->hasAnyRole(['SuperAdmin', 'Admin', 'Editor']) or $post->user_id == Auth::id() )
+                                                    <form class="mr-3 pr-3">
+                                                        @csrf
+                                                        <a class="btn btn-outline-primary p-1" href="#"
+                                                           data-toggle="modal" data-target="#edit_comment_modal"
+                                                           onclick="editComment({{ $comment }})">
+                                                            <i class="fas fa-fw fa-edit"></i>
+                                                        </a>
+                                                        <button type="button" class="btn btn-outline-danger p-1"
+                                                                onclick="deleteComment({{ $comment }}, this.form)">
+                                                            <i class="fas fa-fw fa-trash-alt"></i>
+                                                        </button>
+                                                    </form>
+                                                @endif
+                                            @endauth
                                         </div>
                                         <div class="meta mb-3">
                                             {{ date("F j, Y ", strtotime($comment->created_at)) }} AT
@@ -245,7 +265,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" id="edit_comment_submit" class="btn btn-primary"
+                        <button type="button" id="comment_edit_submit" class="btn btn-primary"
                                 onclick="updateComment(this.form)">Update
                         </button>
                         <button type="button" id="cancel_modal" class="btn btn-outline-secondary"

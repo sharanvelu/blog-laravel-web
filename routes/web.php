@@ -17,8 +17,6 @@ use Spatie\Permission\Models\Role;
 |
 */
 
-//Auth::loginUsingId(3);
-
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -32,13 +30,10 @@ Route::get('/', function() {
 
 //Blog Home and Single page
 Route::group(['prefix'=>'post'], function() {
-    Route::get('test', function () {
-        return view('showposts');
-    });
-
     Route::get('new', 'PostController@blogPostCreate')->name('create');
     Route::get('home', 'PostController@blogHome');
     Route::get('tag/{tag_name}', 'PostController@blogHomeTag');
+    Route::get('update/{id}', 'PostController@edit');
     Route::get('{username}', 'PostController@blogHomeUser');
     Route::get('{username}/{post_url}', 'PostController@blogPost');
 

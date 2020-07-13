@@ -236,63 +236,6 @@
     </div>
 </div>
 
-<!-- Edit or Delete Modal-->
-<div class="modal fade" id="crudModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                    <span id="modalTitle"></span> the post.
-                </h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <form id="formId" action="" method="get">
-                @csrf
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label class="col-form-label align-self-center text-md-right">Post
-                            Title<sup>*</sup> : </label>
-                        <input type="text" id="PostTitleInput" class="form-control" name="PostTitle" required
-                               value="">
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <label class="col-form-label align-self-center text-md-right">Post
-                            Description<sup>*</sup> : </label>
-                        <div id="PostDescriptionDiv">
-                            <textarea class="form-control" name="PostDescription" id="PostDescriptionInput" rows="8"
-                                      wrap="soft" style="overflow:hidden; resize:none;" required></textarea>
-                        </div>
-                        <div class="form-control h-100 bg-gray-200" id="PostDescriptionDelDiv"></div>
-                    </div>
-                    <br>
-                    <div class="form-group row" id="PostImageDiv">
-                        <div class="form-group col-md-6">
-                            <label class="col-form-label align-self-center text-md-right">Image</label>
-                            <input type="file" id="PostImageInput" class="form-control" name="image" value="">
-                        </div>
-                        <img id="PostImageDisp" src="" width="350px" style="display: block">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" id="delSubmitBtn" class="btn btn-danger"
-                            onclick="AjaxCall(this.form)">Delete
-                    </button>
-                    <button type="button" id="editSubmitBtn" class="btn btn-primary"
-                            onclick="AjaxCall(this.form)">Update
-                    </button>
-                    <button type="button" id="cancel_modal" class="btn btn-outline-secondary"
-                            data-dismiss="modal">Cancel
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
 <!-- Script for Edit or Delete Modal -->
 <script>
 

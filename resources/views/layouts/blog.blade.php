@@ -41,7 +41,6 @@
                 aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
         </button>
-
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active"><a href="\post/home" class="nav-link">Home</a></li>
@@ -144,7 +143,6 @@
     </div>
 </footer>
 
-
 <!-- loader -->
 <div id="ftco-loader" class="show fullscreen">
     <svg class="circular" width="48px" height="48px">
@@ -153,7 +151,6 @@
                 stroke="#F96D00"/>
     </svg>
 </div>
-
 
 <script src="\blog/js/jquery.min.js"></script>
 <script src="\blog/js/jquery-migrate-3.0.1.min.js"></script>

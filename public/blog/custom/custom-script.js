@@ -51,27 +51,15 @@ $(document).ready(function () {
     });
 });
 
-//Summer note WYSIWYG Editor Initiator
-$('#post_description').summernote({
-    placeholder: 'Enter Post Description...',
-    tabsize: 4,
-    height: 150,
-    minHeight: 150,
-    maxHeight: null,
-    focus: false
-});
-$('#tags').tagsInput();
-
 //Edit comment Modal Initiator in BlogPost Page
 function editComment(comment) {
-    console.log(comment);
     $("#comment_edit_form").attr("action", "\\comment/update/" + comment.id);
     $("#comment_edit_name").val(comment.user_name);
     $("#comment_edit_comment").val(comment.comment);
-    $("#edit_comment_submit").prop("disabled", false);
+    $("#comment_edit_submit").prop("disabled", false);
 }
 function updateComment(form) {
-    $("#edit_comment_submit").prop("disabled", true);
+    $("#comment_edit_submit").prop("disabled", true);
     $('#comment_edit_name_error').hide();
     $('#comment_edit_comment_error').hide();
     $.ajax({
@@ -87,7 +75,7 @@ function updateComment(form) {
             $('#cancel_modal').click();
         },
         error: function (error) {
-            $("#edit_comment_submit").prop("disabled", false);
+            $("#comment_edit_submit").prop("disabled", false);
             if (error.responseJSON.errors.name) {
                 $('#comment_edit_name_error').html(error.responseJSON.errors.name).show();
             }
@@ -159,4 +147,78 @@ function deleteComment(comment, form) {
             });
         }
     });
+}
+
+//Delete Post Swal Initiator in blogPost
+function deletePost(post, posted_by, form) {
+    swal({
+        title: "Are you sure to delete this Post?",
+        text: "Post Title : " + post.post_title + "\nPosted By : " + posted_by,
+        icon: "warning",
+        buttons: {
+            cancel: true,
+            confirm: {
+                text: "OK",
+                value: true,
+                visible: true,
+                className: "",
+                closeModal: false,
+            }
+        },
+        dangerMode: true,
+    }).then((value) => {
+        if (value) {
+            $.ajax({
+                url: '\\post/delete/' + post.id,
+                type: "POST",
+                data: new FormData(form),
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function (success) {
+                    swal({
+                        title: "Delete Post Successful",
+                        text: "Post Title : " + post.post_title + "\nPosted By : " + posted_by,
+                        icon: "success",
+                        buttons: {
+                            cancel: {
+                                text: "Close",
+                                visible: true,
+                                closeModal: true,
+                            }
+                        },
+                        timer: 2000,
+                    }).then((value) => {
+                        window.location.href = page_load_url();
+                    });
+                },
+                error: function (error) {
+                    swal({
+                        title: 'Could not delete the Post',
+                        text: `Error :  ${error}`,
+                        icon: "danger",
+                        buttons: {
+                            cancel: {
+                                text: "Close",
+                                visible: true,
+                                closeModal: true,
+                            }
+                        },
+                        timer: 2000,
+                    });
+                }
+            });
+        }
+    });
+}
+
+function page_load_url() {
+    var pathname = window.location.pathname;
+    var split = pathname.split('/');
+    var final_url = "";
+    if (split.length > 3){
+        final_url = "/" + split[1] + "/" + split[2] + "/";
+        return window.location.origin + final_url;
+    }
+    return window.location.href;
 }

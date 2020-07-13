@@ -50,26 +50,6 @@ class PostController extends Controller
 
     /**
      *
-     * Post Update through AJAX request
-     * POST Method
-     *
-     * @param $id
-     * @param StorePost $request
-     * @return void
-     */
-    public function update($id, StorePost $request)
-    {
-        $desc = $request->PostDescription;
-
-        Post::where('id', $id)->update([
-            'post_title' => $_POST['PostTitle'],
-            'post_description' => $desc,
-            'image' => $request->hasFile('image') ? $request->file('image')->store('images') : ""
-        ]);
-    }
-
-    /**
-     *
      * Post deletion through AJAX request
      * POST Method
      *
@@ -78,7 +58,8 @@ class PostController extends Controller
      */
     public function delete($id)
     {
-        Post::where('id', $id)->delete();
+        $this->checkPermission('delete-post');
+        Post::find($id)->delete();
     }
 
     /**
@@ -133,9 +114,40 @@ class PostController extends Controller
     {
         $url_array = explode('-', $post_url);
         $user = User::where('name', $username)->firstOrFail();
-        $post = Post::find($url_array[count($url_array) - 1]);
+        $post = Post::findOrFail($url_array[count($url_array) - 1]);
         if ($user->id != $post->user_id) abort(404);
         return view('blog.post', ['post' => $post]);
+    }
+
+    public function edit($id)
+    {
+        abort_unless(Auth::user()->hasPermissionTo('edit-post') or Auth::id() == $id, 404);
+        return view('update_post', [
+            'post' => Post::findOrFail($id)
+        ]);
+    }
+
+    /**
+     *
+     * Post Update through AJAX request
+     * POST Method
+     *
+     * @param $id
+     * @param StorePost $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function update($id, StorePost $request)
+    {
+        $post = Post::find($id)->update([
+            'post_title' => $request->PostTitle,
+            'post_description' => $request->PostDescription,
+            'image' => $request->hasFile('image') ? $request->file('image')->store('images') : ($_POST['img'] ? $_POST['img'] : "")
+        ]);
+        if ($post) {
+            $post = Post::find($id);
+        }
+        //Browser Redirection to post Show page
+        return redirect('post/' . $post->user->name . '/' . str_replace(' ', '-', $post->post_title) . '-' . $post->id);
     }
 
     /**
@@ -146,4 +158,5 @@ class PostController extends Controller
     {
         return Datatables::of(Post::query())->make(true);
     }
+
 }
