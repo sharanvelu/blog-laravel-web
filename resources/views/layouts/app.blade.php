@@ -81,6 +81,15 @@
                 </a>
             </li>
 
+            @hasrole('SuperAdmin')
+            <li class="nav-item">
+                <a class="nav-link" href="\home">
+                    <i class="fas fa-fw fa-paint-roller"></i>
+                    <span>Allow New User</span>
+                </a>
+            </li>
+            @endhasrole
+
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -89,8 +98,8 @@
                 POST
             </div>
 
-        @if(Auth::user()->hasPermissionTo('create-post'))
-            <!-- Nav Item - Create Post -->
+            @can('create-post')
+                <!-- Nav Item - Create Post -->
                 <li class="nav-item">
                     <a class="nav-link" href="\post/new">
                         <i class="fas fa-fw fa-crown"></i>
@@ -102,9 +111,9 @@
                         <i class="fas fa-fw fa-desktop"></i>
                         <span>Show My Post</span></a>
                 </li>
-        @endif
+            @endcan
 
-        <!-- Nav Item - Show All Post -->
+            <!-- Nav Item - Show All Post -->
             <li class="nav-item">
                 <a class="nav-link" href="\post/home">
                     <i class="fas fa-fw fa-cogs"></i>
@@ -112,8 +121,8 @@
             </li>
 
 
-        @if(Auth::user()->hasAnyRole(['SuperAdmin', 'Admin']))
-            <!-- Divider -->
+            @hasanyrole('SuperAdmin|Admin')
+                <!-- Divider -->
                 <hr class="sidebar-divider">
 
                 <!-- Heading -->
@@ -134,13 +143,14 @@
                         <i class="fas fa-fw fa-paint-roller"></i>
                         <span>Assign Role</span></a>
                 </li>
-            @endif
+
+            @endhasanyrole
 
         </ul>
         <!-- End of Sidebar -->
 @endauth
 
-<!-- Content Wrapper Beginning -->
+    <!-- Content Wrapper Beginning -->
     <div id="content-wrapper" class="d-flex flex-column">
 
         <!-- Main Content -->
@@ -155,31 +165,23 @@
                 </button>
 
                 <!-- Topbar Title -->
-            {{--                <div class="d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100">--}}
-            {{--                    <div class="input-group">--}}
-            {{--                        <h1 class="h3">Blog Posts</h1>--}}
-            {{--                    </div>--}}
-            {{--                </div>--}}
+                <div class="d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100">
+                    <div class="input-group">
+                        <h1 class="h3">Sharan's Blog</h1>
+                    </div>
+                </div>
 
-            <!-- Topbar Navbar -->
+                <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto mr-5">
 
-                    @guest
-                        <li class="nav-item">
-                            <a class="nav-link text-gray-700" href="{{ route('login') }}">{{ __('Login') }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-gray-700" href="{{ route('register') }}">
-                                {{ __('Register') }}
-                            </a>
-                        </li>
-                    @else
-                        <li class="nav-item">
-                            <a class="nav-link text-gray-700" href="#" data-toggle="modal" data-target="#logoutModal">
-                                {{ __('Logout') }}
-                            </a>
-                        </li>
-                    @endguest
+
+                @auth
+                    <li class="nav-item">
+                        <a class="nav-link text-gray-700" href="#" data-toggle="modal" data-target="#logoutModal">
+                            {{ __('Logout') }}
+                        </a>
+                    </li>
+                @endauth
 
                 </ul>
 
@@ -187,7 +189,7 @@
             <!-- End of Topbar -->
 
             <!-- Begin Page Content -->
-            <div class="container-fluid" id="page_content">
+            <div class="container-fluid" id="page_content" style="height: 85vh">
 
                 @yield('content')
 

@@ -4,7 +4,6 @@ use App\Post;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
-use Spatie\Permission\Models\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,4 +66,14 @@ Route::group(['prefix' => 'role'], function () {
     //AJAX
     Route::post('delete/{role_name}', 'RoleController@deleteRole');
     Route::post('user/{action}', 'RoleController@userRoleAssignDetach');
+});
+
+//Allow or Deny new user to Register
+Route::post('user/new/{action}', function ($action) {
+    if ($action == 'true') $bool = 1;
+    else $bool = 0;
+    DB::table('user_register')
+        ->updateOrInsert(
+            ['id' => 1],
+            ['allow_register' => $bool]);
 });

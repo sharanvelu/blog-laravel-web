@@ -211,7 +211,6 @@ function deletePost(post, posted_by, form) {
         }
     });
 }
-
 function page_load_url() {
     var pathname = window.location.pathname;
     var split = pathname.split('/');
@@ -221,4 +220,54 @@ function page_load_url() {
         return window.location.origin + final_url;
     }
     return window.location.href;
+}
+
+//Allow or Deny new user to be registered through /register Route
+function NewUserToggle(form) {
+    var action = '';
+    action = !!$('#new_user_toggle').prop('checked');
+    $.ajax({
+        url: '\\user/new/' + action,
+        type: "POST",
+        data: new FormData(form),
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function () {
+            $("#new_user_toggle_form").load(location.href + " #new_user_toggle_form");
+            var icon = '';
+            var yes_or_no = '';
+            action ? icon='success' : icon='info';
+            action ? yes_or_no='' : yes_or_no='not ';
+            action ? action='Allow' : action="Deny";
+            swal({
+                title: action + 'ing New Users',
+                text: 'New Users are ' + yes_or_no + 'allowed to register using \'register Route',
+                icon: icon,
+                buttons: {
+                    cancel: {
+                        text: "Close",
+                        visible: true,
+                        closeModal: true,
+                    }
+                },
+                timer: 2000,
+            });
+        },
+        error: function (error) {
+            swal({
+                title: 'Could not toggle',
+                text: `Error :  ${error}`,
+                icon: "error",
+                buttons: {
+                    cancel: {
+                        text: "Close",
+                        visible: true,
+                        closeModal: true,
+                    }
+                },
+                timer: 2000,
+            });
+        }
+    });
 }
