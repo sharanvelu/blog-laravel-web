@@ -37,7 +37,7 @@
                     </div>
                     <p class="text-gray-100 font-weight-light">{{ date("F j, Y ", strtotime($post->created_at)) }}</p>
                     <p class="mb-5">
-                        <img src="\{{ $post->image }}" alt="{{ $post->post_title }}-image" class="img-fluid">
+                        <img src="{{ asset('storage/'.$post->image) }}" alt="{{ $post->post_title }}-image" class="img-fluid">
                     </p>
                     <div>
                         <?php echo $post->post_description ?>
