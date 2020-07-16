@@ -33,13 +33,16 @@ class PostController extends Controller
      */
     public function create(StorePost $request)
     {
+        $file = '';
+        if ($request->hasFile('image')){
+            $file = new File($request->file('image')->getPathname());
+            $file->move(public_path().'/images/');
+        }
+//        dd($file);
         $post = Post::create([
             'post_title' => $request->PostTitle,
             'post_description' => $request->PostDescription,
-            'image' => $request->hasFile('image') ?
-                Storage::putFile('images', new File($request->file('image')
-                    ->getPathname()))
-                : "",
+            'image' => 'images/' . $file->getFilename(),
             'user_id' => Auth::id()
         ]);
 
@@ -49,6 +52,7 @@ class PostController extends Controller
                 $post->tags()->attach($tags->id);
             }
         }
+
         //Browser Redirection to post Show page
         return redirect('post/' . $post->user->name . '/' . str_replace(' ', '-', $post->post_title) . '-' . $post->id);
     }
@@ -64,7 +68,9 @@ class PostController extends Controller
     public function delete($id)
     {
         $this->checkPermission('delete-post');
-        Post::find($id)->delete();
+        $post = Post::find($id);
+        Storage::delete($post->image);
+        $post->delete();
     }
 
     /**
