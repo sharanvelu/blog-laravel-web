@@ -64,7 +64,9 @@ class PostController extends Controller
     public function delete($id)
     {
         $this->checkPermission('delete-post');
-        Post::find($id)->delete();
+        $post = Post::find($id);
+        $post->delete();
+        Storage::delete($post->image);
     }
 
     /**
