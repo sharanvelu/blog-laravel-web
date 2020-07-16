@@ -6,7 +6,9 @@ use App\Post;
 use App\Http\Requests\StorePost;
 use App\Tag;
 use App\User;
+use Illuminate\Http\File;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;
 
@@ -34,7 +36,10 @@ class PostController extends Controller
         $post = Post::create([
             'post_title' => $request->PostTitle,
             'post_description' => $request->PostDescription,
-            'image' => $request->hasFile('image') ? $request->file('image')->store('images') : "",
+            'image' => $request->hasFile('image') ?
+                Storage::putFile('images', new File($request->file('image')
+                    ->getPathname()))
+                : "",
             'user_id' => Auth::id()
         ]);
 
@@ -141,11 +146,12 @@ class PostController extends Controller
         $post = Post::find($id)->update([
             'post_title' => $request->PostTitle,
             'post_description' => $request->PostDescription,
-            'image' => $request->hasFile('image') ? $request->file('image')->store('images') : ($_POST['img'] ? $_POST['img'] : "")
+            'image' => $request->hasFile('image') ?
+                Storage::putFile('images', new File($request->file('image')
+                    ->getPathname()))
+                : $_POST['img'] ? $_POST['img'] : "" ,
         ]);
-        if ($post) {
-            $post = Post::find($id);
-        }
+        if ($post) { $post = Post::find($id); }
         //Browser Redirection to post Show page
         return redirect('post/' . $post->user->name . '/' . str_replace(' ', '-', $post->post_title) . '-' . $post->id);
     }
