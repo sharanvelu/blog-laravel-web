@@ -36,7 +36,7 @@
 
 <nav class="navbar px-md-0 navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
-        <a class="navbar-brand" href="index.html">Sharan's<i> Blog</i></a>
+        <a class="navbar-brand" href="\post/home">Sharan's<i> Blog</i></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
                 aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
@@ -144,13 +144,13 @@
 </footer>
 
 <!-- loader -->
-<div id="ftco-loader" class="show fullscreen">
-    <svg class="circular" width="48px" height="48px">
-        <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
-        <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
-                stroke="#F96D00"/>
-    </svg>
-</div>
+{{--<div id="ftco-loader" class="show fullscreen">--}}
+{{--    <svg class="circular" width="48px" height="48px">--}}
+{{--        <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>--}}
+{{--        <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"--}}
+{{--                stroke="#F96D00"/>--}}
+{{--    </svg>--}}
+{{--</div>--}}
 
 <script src="\blog/js/jquery.min.js"></script>
 <script src="\blog/js/jquery-migrate-3.0.1.min.js"></script>

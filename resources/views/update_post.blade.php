@@ -55,7 +55,7 @@
 
         <div class="form-group" style="max-width: 600px;">
             <p class="mb-5">
-                <img src="\{{ $post->image }}" alt="{{ $post->post_title }}-image" class="img-fluid">
+                <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->post_title }}-image" class="img-fluid">
             </p>
         </div>
 
