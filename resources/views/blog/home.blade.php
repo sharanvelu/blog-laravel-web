@@ -38,7 +38,7 @@
                     <div class="col-md-4 d-flex ftco-animate custom-border-0">
                         <div class="blog-entry justify-content-end">
                             <a href="\post/{{ $post->user->name }}/{{ str_replace(' ', '-', $post->post_title) }}-{{ $post->id }}"
-                               class="block-20" style="background-image: url('{{ asset('storage/'.$post->image) }}');">
+                               class="block-20" style="background-image: url('\\{{ $post->image }}');">
                             </a>
                             <div class="text p-4 float-right d-block">
                                 <div class="topper d-flex align-items-center">
