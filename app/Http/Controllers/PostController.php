@@ -121,8 +121,8 @@ class PostController extends Controller
     {
         $url_array = explode('-', $post_url);
         $user = User::where('name', $username)->firstOrFail();
-        $post = Post::findOrFail($url_array[count($url_array) - 1]);
-        if ($user->id != $post->user_id) abort(404);
+        $post = Post::findOrFail(end($url_array));
+        abort_if($user->id != $post->user_id, 404);
         return view('blog.post', ['post' => $post]);
     }
 
