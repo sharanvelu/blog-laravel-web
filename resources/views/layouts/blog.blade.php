@@ -7,25 +7,12 @@
 
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 
-    <link rel="stylesheet" href="\blog/css/open-iconic-bootstrap.min.css">
     <link rel="stylesheet" href="\blog/css/animate.css">
-
-    <link rel="stylesheet" href="\blog/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="\blog/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="\blog/css/magnific-popup.css">
-
-    <link rel="stylesheet" href="\blog/css/aos.css">
-
     <link rel="stylesheet" href="\blog/css/ionicons.min.css">
-
-    <link rel="stylesheet" href="\blog/css/flaticon.css">
     <link rel="stylesheet" href="\blog/css/icomoon.css">
     <link rel="stylesheet" href="\blog/css/style.css">
 
-    <!-- CDN for Sweet Alert -->
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-    <!-- Custom fonts for this template-->
+    <!-- Custom icons for this template-->
     <link href="\vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
     <!-- My own Custom Styles -->
@@ -55,7 +42,96 @@
 </nav>
 <!-- END nav -->
 
-@yield('content')
+
+<!-- Landing Screen -->
+<section class="hero-wrap hero-wrap-2 js-fullheight"
+         style="max-height: 120px;" >
+    <div class="overlay"></div>
+</section>
+
+<!-- Beginnning of the content -->
+<section class="ftco-section ftco-degree-bg">
+    <div class="container">
+        <div class="row">
+
+            @yield('content')
+
+            <!-- Side Bar -->
+            <div class="col-lg-4 sidebar pl-lg-5 ftco-animate">
+                <!-- SideBar Search -->
+                <div class="sidebar-box ftco-animate">
+                    <form action="#" class="search-form">
+                        <div class="form-group">
+                            <span class="icon icon-search"></span>
+                            <input type="text" class="form-control" placeholder="Type a keyword and hit enter">
+                        </div>
+                    </form>
+                </div>
+
+                <!-- SideBar Categories -->
+                <div class="sidebar-box ftco-animate">
+                    <div class="categories">
+                        <h3>Categories</h3>
+                        <li><a href="#">Illustration <span class="ion-ios-arrow-forward"></span></a></li>
+                        <li><a href="#">Branding <span class="ion-ios-arrow-forward"></span></a></li>
+                        <li><a href="#">Application <span class="ion-ios-arrow-forward"></span></a></li>
+                        <li><a href="#">Design <span class="ion-ios-arrow-forward"></span></a></li>
+                        <li><a href="#">Marketing <span class="ion-ios-arrow-forward"></span></a></li>
+                    </div>
+                </div>
+
+                <!-- SideBar Recent Post -->
+                <div class="sidebar-box ftco-animate">
+                    <h3>Recent Post</h3>
+                    @foreach($recent_posts->take(3) as $latest_post)
+                        <div class="block-21 mb-4 d-flex">
+                            <a class="img mr-4 rounded"
+                               href="\post/{{ $latest_post->user->name }}/{{ str_replace(' ', '-', $latest_post->post_title) }}-{{ $latest_post->id }}"
+                               style="background-image: url('{{ asset('storage/' . $latest_post->image) }}');"></a>
+                            <div class="text">
+                                <h3 class="heading"><a
+                                        href="\post/{{ $latest_post->user->name }}/{{ str_replace(' ', '-', $latest_post->post_title) }}-{{ $latest_post->id }}">
+                                        {{ $latest_post->post_title }}...</a>
+                                </h3>
+                                <div class="meta">
+                                    <div><a><span class="icon-calendar"></span>
+                                            {{ date("M j, Y ", strtotime($latest_post->created_at)) }}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+                <!-- SideBar Popular Tags -->
+                <div class="sidebar-box ftco-animate">
+                    <div class="categories">
+                        <h3>Popular Tags</h3>
+                        @foreach($popular_tags as $popular_tag)
+                            <li>
+                                <a href="\post/tag/{{ $popular_tag->tag_name }}">
+                                    {{ $popular_tag->tag_name }}
+                                    <span class="mr-lg-5">Post Count : {{ $popular_tag->count }}</span>
+                                    <span class="ion-ios-arrow-forward"></span>
+                                </a></li>
+                        @endforeach
+                    </div>
+                </div>
+
+                <div class="sidebar-box ftco-animate">
+                    <h3>Tag Cloud</h3>
+                    <div class="tagcloud">
+                        @foreach($tag_cloud->take(30) as $tag)
+                            <a href="\post/tag/{{ $tag->name }}" class="tag-cloud-link">{{ $tag->name }}</a>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+            <!-- End of Side Bar -->
+
+        </div>
+    </div>
+</section>
 
 <!-- Footer Begins -->
 <footer class="ftco-footer ftco-bg-dark ftco-section">
@@ -80,11 +156,11 @@
             <div class="col-md">
                 <div class="ftco-footer-widget mb-4">
                     <h2 class="ftco-heading-2">latest News</h2>
-                    @foreach(App\Post::latest()->take(2)->get() as $latest_post)
+                    @foreach($recent_posts->take(2) as $latest_post)
                         <div class="block-21 mb-4 d-flex">
                             <a class="img mr-4 rounded"
                                href="\post/{{ $latest_post->user->name }}/{{ str_replace(' ', '-', $latest_post->post_title) }}-{{ $latest_post->id }}"
-                               style="background-image: url('\\{{ $latest_post->image }}');"></a>
+                               style="background-image: url('{{ asset('storage/' . $latest_post->image) }}');"></a>
                             <div class="text">
                                 <h3 class="heading"><a
                                         href="\post/{{ $latest_post->user->name }}/{{ str_replace(' ', '-', $latest_post->post_title) }}-{{ $latest_post->id }}">
@@ -143,30 +219,14 @@
     </div>
 </footer>
 
-<!-- loader -->
-{{--<div id="ftco-loader" class="show fullscreen">--}}
-{{--    <svg class="circular" width="48px" height="48px">--}}
-{{--        <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>--}}
-{{--        <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"--}}
-{{--                stroke="#F96D00"/>--}}
-{{--    </svg>--}}
-{{--</div>--}}
-
 <script src="\blog/js/jquery.min.js"></script>
-<script src="\blog/js/jquery-migrate-3.0.1.min.js"></script>
-<script src="\blog/js/popper.min.js"></script>
 <script src="\blog/js/bootstrap.min.js"></script>
-<script src="\blog/js/jquery.easing.1.3.js"></script>
 <script src="\blog/js/jquery.waypoints.min.js"></script>
-<script src="\blog/js/jquery.stellar.min.js"></script>
-<script src="\blog/js/owl.carousel.min.js"></script>
-<script src="\blog/js/jquery.magnific-popup.min.js"></script>
-<script src="\blog/js/aos.js"></script>
 <script src="\blog/js/jquery.animateNumber.min.js"></script>
-<script src="\blog/js/scrollax.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-<script src="\blog/js/google-map.js"></script>
 <script src="\blog/js/main.js"></script>
+
+<!-- CDN for Sweet Alert -->
+<script src="\blog/custom/sweetalert/sweetalert.min.js"></script>
 
 <!-- My own Custom Script -->
 <script src="\blog/custom/custom-script.js"></script>
