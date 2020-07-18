@@ -19,7 +19,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff4e70cd-19b7-4b69-abb7-e9adfc5834d8" name="Default Changelist" comment="" />
+    <list default="true" id="ff4e70cd-19b7-4b69-abb7-e9adfc5834d8" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -145,9 +147,7 @@
     </include_path>
   </component>
   <component name="ProjectId" id="1eOVXtM1UjHrbhG8TG2SfCLmpYK" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -159,7 +159,12 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.general" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Confirmation" />
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="?" />
+    </option>
   </component>
   <component name="RunManager">
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
@@ -205,10 +210,10 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="275" y="27" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1594285452539">
+    <state x="275" y="27" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1594988780295">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="275" y="27" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.738@0.0.1366.738" timestamp="1594285452539" />
+    <state x="275" y="27" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.738@0.0.1366.738" timestamp="1594988780295" />
     <state x="363" y="105" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1594284639066">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -217,10 +222,14 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="301" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1594301010597" />
-    <state x="184" y="14" key="SettingsEditor" timestamp="1594619695177">
+    <state x="517" y="292" key="NewPhpFileDialog" timestamp="1595061517742">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="184" y="14" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1594619695177" />
+    <state x="517" y="292" key="NewPhpFileDialog/0.0.1366.738@0.0.1366.738" timestamp="1595061517742" />
+    <state x="184" y="14" key="SettingsEditor" timestamp="1595068390610">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="184" y="14" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1595068390610" />
     <state x="549" y="256" width="295" height="225" key="com.intellij.database.actions.ToolActions$ScriptingActionBase$MyDatabaseScriptDialog" timestamp="1594363805974">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -237,13 +246,13 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="0" y="0" width="585" height="738" key="find.popup/0.0.1366.738@0.0.1366.738" timestamp="1594642121954" />
-    <state x="339" y="165" key="run.anything.popup" timestamp="1594640614807">
+    <state x="339" y="165" width="672" height="677" key="run.anything.popup" timestamp="1595059051209">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="339" y="165" key="run.anything.popup/0.0.1366.738@0.0.1366.738" timestamp="1594640614807" />
-    <state x="346" y="59" width="672" height="678" key="search.everywhere.popup" timestamp="1594640593593">
+    <state x="339" y="165" width="672" height="677" key="run.anything.popup/0.0.1366.738@0.0.1366.738" timestamp="1595059051209" />
+    <state x="346" y="59" width="672" height="678" key="search.everywhere.popup" timestamp="1595061497630">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="346" y="59" width="672" height="678" key="search.everywhere.popup/0.0.1366.738@0.0.1366.738" timestamp="1594640593593" />
+    <state x="346" y="59" width="672" height="678" key="search.everywhere.popup/0.0.1366.738@0.0.1366.738" timestamp="1595061497630" />
   </component>
 </project>

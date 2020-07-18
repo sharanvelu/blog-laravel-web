@@ -105,11 +105,10 @@ class PostController extends Controller
      */
     public function blogHomeUser($username)
     {
-        if (User::where('name', $username)->firstOrFail()) {
-            return view('blog.home', [
-                'posts' => User::where('name', $username)->first()->posts,
-            ]);
-        } else abort(404);
+        $user = User::where('name', $username)->firstOrFail();
+        return view('blog.home', [
+            'posts' => $user->posts,
+        ]);
     }
 
     /**

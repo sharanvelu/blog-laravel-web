@@ -59,7 +59,7 @@
             <!-- Side Bar -->
             <div class="col-lg-4 sidebar pl-lg-5 ftco-animate">
                 <!-- SideBar Search -->
-                <div class="sidebar-box">
+                <div class="sidebar-box ftco-animate">
                     <form action="#" class="search-form">
                         <div class="form-group">
                             <span class="icon icon-search"></span>
@@ -83,7 +83,7 @@
                 <!-- SideBar Recent Post -->
                 <div class="sidebar-box ftco-animate">
                     <h3>Recent Post</h3>
-                    @foreach(App\Post::latest()->take(3)->get() as $latest_post)
+                    @foreach($recent_posts->take(3) as $latest_post)
                         <div class="block-21 mb-4 d-flex">
                             <a class="img mr-4 rounded"
                                href="\post/{{ $latest_post->user->name }}/{{ str_replace(' ', '-', $latest_post->post_title) }}-{{ $latest_post->id }}"
@@ -103,10 +103,25 @@
                     @endforeach
                 </div>
 
+                <!-- SideBar Popular Tags -->
+                <div class="sidebar-box ftco-animate">
+                    <div class="categories">
+                        <h3>Popular Tags</h3>
+                        @foreach($popular_tags as $popular_tag)
+                            <li>
+                                <a href="\post/tag/{{ $popular_tag->tag_name }}">
+                                    {{ $popular_tag->tag_name }}
+                                    <span class="mr-lg-5">Post Count : {{ $popular_tag->count }}</span>
+                                    <span class="ion-ios-arrow-forward"></span>
+                                </a></li>
+                        @endforeach
+                    </div>
+                </div>
+
                 <div class="sidebar-box ftco-animate">
                     <h3>Tag Cloud</h3>
                     <div class="tagcloud">
-                        @foreach(App\Tag::latest()->take(50)->get() as $tag)
+                        @foreach($tag_cloud->take(30) as $tag)
                             <a href="\post/tag/{{ $tag->name }}" class="tag-cloud-link">{{ $tag->name }}</a>
                         @endforeach
                     </div>
@@ -141,7 +156,7 @@
             <div class="col-md">
                 <div class="ftco-footer-widget mb-4">
                     <h2 class="ftco-heading-2">latest News</h2>
-                    @foreach(App\Post::latest()->take(2)->get() as $latest_post)
+                    @foreach($recent_posts->take(2) as $latest_post)
                         <div class="block-21 mb-4 d-flex">
                             <a class="img mr-4 rounded"
                                href="\post/{{ $latest_post->user->name }}/{{ str_replace(' ', '-', $latest_post->post_title) }}-{{ $latest_post->id }}"

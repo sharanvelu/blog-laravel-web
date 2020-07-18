@@ -25,11 +25,10 @@
                             {{ $post->post_title }}
                         </a>
                     </h3>
-                    <p>{{ substr(str_replace("&nbsp;", "", strip_tags($post->post_description)), 0, 100) }}. . .</p>
+                    <p>{{ substr(html_entity_decode(strip_tags($post->post_description)), 0, 200) }}. . .</p>
                     <p>
                         <a href="\post/{{ $post_user_name }}/{{ str_replace(' ', '-', $post->post_title) }}-{{ $post->id }}"
-                           class="btn-custom"><span class="ion-ios-arrow-round-forward mr-3"></span>Read
-                            more</a>
+                           class="btn-custom"><span class="ion-ios-arrow-round-forward mr-3"></span>Read more</a>
                     </p>
                 </div>
             </div>
