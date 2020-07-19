@@ -7,10 +7,12 @@ class PostSeeder extends Seeder
     /**
      * Run the database seeds.
      *
+     * @param $count
      * @return void
+     *
      */
-    public function run()
+    static public function run($count)
     {
-        factory('App\Post', 20)->create();
+        factory('App\Post', $count)->create();
     }
 }

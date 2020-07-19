@@ -147,10 +147,9 @@ class PostController extends Controller
         $post = Post::find($id)->update([
             'post_title' => $request->PostTitle,
             'post_description' => $request->PostDescription,
-            'image' => $request->hasFile('image') ?
-                Storage::putFile('images', new File($request->file('image')
-                    ->getPathname()))
-                : $_POST['img'] ? $_POST['img'] : "" ,
+            'image' => $request->hasFile('image')
+                ? Storage::putFile('images', new File($request->file('image')->getPathname()))
+                : ( $_POST['img'] ? $_POST['img'] : "" ) ,
         ]);
         if ($post) { $post = Post::find($id); }
         //Browser Redirection to post Show page
