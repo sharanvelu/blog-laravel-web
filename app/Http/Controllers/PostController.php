@@ -84,7 +84,7 @@ class PostController extends Controller
     public function blogHome()
     {
         return view('blog.home', [
-            'posts' => Post::all(),
+            'posts' => Post::paginate(5),
         ]);
     }
 

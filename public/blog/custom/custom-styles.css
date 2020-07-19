@@ -1,0 +1,9 @@
+span.paginate-disabled {
+    cursor: not-allowed;
+    background: #efefef;
+}
+
+.paginate-hover:hover {
+    background: #d5ebff;
+    color: #002aff;
+}
