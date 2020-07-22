@@ -15,7 +15,7 @@
     @foreach($posts as $post)
         <div class="blog-entry justify-content-end ftco-animate rounded">
             <a href="\post/{{ $post_user_name = $users->find($post->user_id)->name }}/{{ str_replace(' ', '-', $post->post_title) }}-{{ $post->id }}"
-               class="block-20" style="background-image: url('{{ asset('storage/'.$post->image) }}');">
+               class="block-20" style="">
             </a>
             <div class="text p-4 float-right d-block">
                 <div class="topper d-flex align-items-center">
