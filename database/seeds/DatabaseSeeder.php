@@ -139,24 +139,21 @@ class DatabaseSeeder extends Seeder
      */
     private function createRolePermission()
     {
-        $role_SA = Role::create(['name' => 'SuperAdmin']);              // Create 'SuperAdmin' Role
-        $role_A = Role::create(['name' => 'Admin']);                    // Create "Admin' Role
+        $role_SA = Role::create(['name' => 'SuperAdmin']);              // Create 'SuperAdmin' role
+        $role_A = Role::create(['name' => 'Admin']);                    // Create 'Admin' role
+        $role_W = Role::create(['name'=>'Writer']);                     // Create 'Writer' role
+        $role_E = Role::create(['name'=>'Editor']);                     // Create 'Editor' role
 
         $permission = Permission::create(['name' => 'create-post']);    // Create 'create-post' permission
-        $role_SA->givePermissionTo($permission);                           // Assign 'create-post' to 'SuperAdmin'
-        $role_A->givePermissionTo($permission);                           // Assign 'create-post' to 'Admin'
+        $permission->syncRoles([$role_SA, $role_A, $role_W]);           // sync 'create-post' role to 'SA', 'A', 'W'
 
         $permission = Permission::create(['name' => 'edit-post']);      // Create 'edit-post' permission
-        $role_SA->givePermissionTo($permission);                           // Assign 'edit-post' to 'SuperAdmin'
-        $role_A->givePermissionTo($permission);                           // Assign 'edit-post' to 'Admin'
+        $permission->syncRoles([$role_SA, $role_A, $role_E]);           // sync 'create-post' role to 'SA', 'A', 'E'
 
         $permission = Permission::create(['name' => 'delete-post']);    // Create 'delete-post' permission
-        $role_SA->givePermissionTo($permission);                           // Assign 'delete-post' to 'SuperAdmin'
-        $role_A->givePermissionTo($permission);                           // Assign 'delete-post' to 'Admin'
+        $permission->syncRoles([$role_SA, $role_A]);                    // sync 'create-post' role to 'SA', 'A'
 
-        App\User::first()->assignRole($role_SA);                               // Assign 'SuperAdmin' role to First User
+        App\User::first()->assignRole($role_SA);                        // Assign 'SuperAdmin' role to First User
 
-        Role::create(['name'=>'Writer']);
-        Role::create(['name'=>'Editor']);
     }
 }

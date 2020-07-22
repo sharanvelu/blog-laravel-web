@@ -4,10 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Searchable\Searchable;
+use Spatie\Searchable\SearchResult;
 
-class Post extends Model
+class Post extends Model implements Searchable
 {
     use SoftDeletes;
+
     protected $fillable = [
         'post_title',
         'post_description',
@@ -31,4 +34,21 @@ class Post extends Model
     {
         return $this->belongsToMany(Tag::class)->withTimestamps();
     }
+
+    /**
+     *
+     * Used by Spatie/laravel-searchable to search through DB
+     *
+     * @return SearchResult
+     */
+    public function getSearchResult(): SearchResult
+    {
+        $url= '\post/' . $this->user->name . '/' . str_replace(' ', '-', $this->post_title) . '-' . $this->id;
+        return new SearchResult(
+            $this,
+            $this->post_title,
+            $url
+        );
+    }
+
 }

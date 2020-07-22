@@ -38,13 +38,13 @@ function addComment(form) {
 //Select All Permissions in Assign Role
 $(document).ready(function () {
     $('#select_all').click(function () {
-        if(this.checked) {
+        if (this.checked) {
             // Iterate each checkbox
-            $(':checkbox').each(function() {
+            $(':checkbox').each(function () {
                 this.checked = true;
             });
         } else {
-            $(':checkbox').each(function() {
+            $(':checkbox').each(function () {
                 this.checked = false;
             });
         }
@@ -58,6 +58,7 @@ function editComment(comment) {
     $("#comment_edit_comment").val(comment.comment);
     $("#comment_edit_submit").prop("disabled", false);
 }
+
 function updateComment(form) {
     $("#comment_edit_submit").prop("disabled", true);
     $('#comment_edit_name_error').hide();
@@ -211,11 +212,12 @@ function deletePost(post, posted_by, form) {
         }
     });
 }
+
 function page_load_url() {
     var pathname = window.location.pathname;
     var split = pathname.split('/');
     var final_url = "";
-    if (split.length > 3){
+    if (split.length > 3) {
         final_url = "/" + split[1] + "/" + split[2] + "/";
         return window.location.origin + final_url;
     }
@@ -237,9 +239,9 @@ function NewUserToggle(form) {
             $("#new_user_toggle_form").load(location.href + " #new_user_toggle_form");
             var icon = '';
             var yes_or_no = '';
-            action ? icon='success' : icon='info';
-            action ? yes_or_no='' : yes_or_no='not ';
-            action ? action='Allow' : action="Deny";
+            action ? icon = 'success' : icon = 'info';
+            action ? yes_or_no = '' : yes_or_no = 'not ';
+            action ? action = 'Allow' : action = "Deny";
             swal({
                 title: action + 'ing New Users',
                 text: 'New Users are ' + yes_or_no + 'allowed to register using \'register Route',
@@ -263,6 +265,7 @@ function NewUserToggle(form) {
                     cancel: {
                         text: "Close",
                         visible: true,
+                        value: null,
                         closeModal: true,
                     }
                 },
@@ -272,3 +275,84 @@ function NewUserToggle(form) {
     });
 }
 
+// Current page 'active' in topbar
+var pathname = window.location.pathname;
+var split = pathname.split('/');
+if (split[1] !== 'role') {
+    if (split[1] === 'post') {
+        if (split[2] === 'home') {
+            $('#nav_item_home').addClass('active');
+        }
+    } else if (split[1] === 'home') {
+        $('#nav_item_Dashboard').addClass('active');
+    } else if (split[1] === 'login') {
+        $('#nav_item_Login').html('<a href="\\register" class="nav-link">Register</a>')
+    }
+}
+
+// Logout swal
+function logout() {
+    swal({
+        title: 'Ready to Leave?',
+        text: 'Are you sure to end your current session?',
+        icon: 'warning',
+        buttons: {
+            cancel: true,
+            confirm: {
+                text: 'Logout',
+                value: true
+            },
+        },
+    }).then((value) => {
+        if (value) {
+            $('#logout-form').submit();
+        }
+    });
+    return false;
+}
+
+// Sidebar search form
+function sidebarSearch() {
+    var key = $('[name="key"]').val();
+    $('#sidebar_search').attr('action', '\\search/' + key);// = '\\search/' + key;
+}
+
+// Comments section
+// Check user name for the email if it is valid and prepopulates the name in the name field
+function commentGetName(form) {
+    var email = $('#comment_email').val();
+    if ( IsEmail(email) ) {
+        $('#email_error').html('');
+        $.ajax({
+            url: '\\comment/get/name',
+            type: "POST",
+            data: new FormData(form),
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function (name) {
+                if (name !== ""){
+                    $('#comment_name').val(name).attr('disabled', true);
+                    $('#name_info').html('Name Pre-populated with email you entered');
+                } else {
+                    $('#comment_name').val('').attr('disabled', false);
+                    $('#name_info').html('');
+                }
+            }
+        });
+    } else if ( email === '' ) {
+        $('#comment_name').val('').attr('disabled', false);
+        $('#name_info').html('');
+        $('#email_error').html('');
+    } else {
+        $('#comment_name').val('').attr('disabled', false);
+        $('#name_info').html('');
+        $('#email_error').html('Please Enter Valid Email');
+    }
+}
+
+// Check whether the input string is a valid email or notc
+function IsEmail(email) {
+    var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    return regex.test(email);
+}

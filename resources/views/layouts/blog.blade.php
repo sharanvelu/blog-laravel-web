@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>@yield('head_title')</title>
+    <title>@yield('doc_title')</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="\blog/css/icomoon.css">
     <link rel="stylesheet" href="\blog/css/style.css">
 
-    <!-- Custom icons for this template-->
+    <!-- Custom icons for template-->
     <link href="\vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
     <!-- My own Custom Styles -->
@@ -23,29 +23,33 @@
 
 <nav class="navbar px-md-0 navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
-        <a class="navbar-brand" href="\post/home">Sharan's<i> Blog</i></a>
+        <a class="navbar-brand" href="\post/home">
+            <img class="mr-3" src="{{ $site_logo }}" height="50px">
+            Sharan's<i> Blog</i>
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
                 aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
         </button>
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"><a href="\post/home" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="\post/home" class="nav-link">Articles</a></li>
+                <li class="nav-item" id="nav_item_home"><a href="\post/home" class="nav-link">Home</a></li>
                 <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
-                @auth
-                    <li class="nav-item"><a href="\home" class="nav-link">Dashboard</a></li>
-                @endauth
+                @foreach($login_data as $data)
+                    <li class="nav-item" id="nav_item_{{ $data->name }}">
+                        <a href="{{ $data->href }}" class="nav-link"
+                           @if($data->name =="Logout") onclick="event.preventDefault(); logout()" @endif>
+                            {{ $data->name }}</a></li>
+                @endforeach
             </ul>
         </div>
     </div>
 </nav>
 <!-- END nav -->
 
-
 <!-- Landing Screen -->
 <section class="hero-wrap hero-wrap-2 js-fullheight"
-         style="max-height: 120px;" >
+         style="max-height: 120px;">
     <div class="overlay"></div>
 </section>
 
@@ -53,44 +57,38 @@
 <section class="ftco-section ftco-degree-bg">
     <div class="container">
         <div class="row">
+            <div class="col-lg-8 ftco-animate">
 
-            @yield('content')
+                @yield('content')
+
+            </div>
 
             <!-- Side Bar -->
             <div class="col-lg-4 sidebar pl-lg-5 ftco-animate">
                 <!-- SideBar Search -->
                 <div class="sidebar-box ftco-animate">
-                    <form action="#" class="search-form">
+                    <form class="search-form" action="#" method="get" id="sidebar_search">
                         <div class="form-group">
-                            <span class="icon icon-search"></span>
-                            <input type="text" class="form-control" placeholder="Type a keyword and hit enter">
+                            <span onclick="document.getElementById('sidebar_search').submit();"><i
+                                    class="icon icon-search"></i></span>
+                            <input type="text" name="key" class="form-control"
+                                   placeholder="Type a keyword and hit enter"
+                                   onkeyup="sidebarSearch()">
                         </div>
                     </form>
-                </div>
-
-                <!-- SideBar Categories -->
-                <div class="sidebar-box ftco-animate">
-                    <div class="categories">
-                        <h3>Categories</h3>
-                        <li><a href="#">Illustration <span class="ion-ios-arrow-forward"></span></a></li>
-                        <li><a href="#">Branding <span class="ion-ios-arrow-forward"></span></a></li>
-                        <li><a href="#">Application <span class="ion-ios-arrow-forward"></span></a></li>
-                        <li><a href="#">Design <span class="ion-ios-arrow-forward"></span></a></li>
-                        <li><a href="#">Marketing <span class="ion-ios-arrow-forward"></span></a></li>
-                    </div>
                 </div>
 
                 <!-- SideBar Recent Post -->
                 <div class="sidebar-box ftco-animate">
                     <h3>Recent Post</h3>
-                    @foreach($recent_posts->take(3) as $latest_post)
+                    @foreach($recent_posts as $latest_post)
                         <div class="block-21 mb-4 d-flex">
                             <a class="img mr-4 rounded"
-                               href="\post/{{ $latest_post->user->name }}/{{ str_replace(' ', '-', $latest_post->post_title) }}-{{ $latest_post->id }}"
+                               href="\post/{{ $url = $users->find($latest_post->user_id)->name.'/'.str_replace(' ', '-', $latest_post->post_title).'-'.$latest_post->id }}"
                                style="background-image: url('{{ asset('storage/' . $latest_post->image) }}');"></a>
                             <div class="text">
                                 <h3 class="heading"><a
-                                        href="\post/{{ $latest_post->user->name }}/{{ str_replace(' ', '-', $latest_post->post_title) }}-{{ $latest_post->id }}">
+                                        href="\post/{{ $url }}">
                                         {{ $latest_post->post_title }}...</a>
                                 </h3>
                                 <div class="meta">
@@ -118,6 +116,7 @@
                     </div>
                 </div>
 
+                <!-- TagCloud -->
                 <div class="sidebar-box ftco-animate">
                     <h3>Tag Cloud</h3>
                     <div class="tagcloud">
@@ -126,12 +125,30 @@
                         @endforeach
                     </div>
                 </div>
+
+                <!-- Posts by month -->
+                <div class="sidebar-box ftco-animate">
+                    <h3>Filter posts by month</h3>
+                    <form class="search-form" action="\search/date" method="post">
+                        @csrf
+                        <div class="form-group"><input type="month" name="key" class="form-control"></div>
+                        <div class="form-group">
+                            <button class="custom-button-secondary" type="submit">Search</button>
+                        </div>
+                    </form>
+                </div>
+
             </div>
             <!-- End of Side Bar -->
-
         </div>
     </div>
 </section>
+
+<!-- Logout Modal-->
+<form id="logout-form" action="{{ route('logout') }}" method="POST"
+      style="display: none;">
+    @csrf
+</form>
 
 <!-- Footer Begins -->
 <footer class="ftco-footer ftco-bg-dark ftco-section">
@@ -159,11 +176,11 @@
                     @foreach($recent_posts->take(2) as $latest_post)
                         <div class="block-21 mb-4 d-flex">
                             <a class="img mr-4 rounded"
-                               href="\post/{{ $latest_post->user->name }}/{{ str_replace(' ', '-', $latest_post->post_title) }}-{{ $latest_post->id }}"
+                               href="\post/{{ $url = $users->find($latest_post->user_id)->name.'/'.str_replace(' ', '-', $latest_post->post_title).'-'.$latest_post->id }}"
                                style="background-image: url('{{ asset('storage/' . $latest_post->image) }}');"></a>
                             <div class="text">
                                 <h3 class="heading"><a
-                                        href="\post/{{ $latest_post->user->name }}/{{ str_replace(' ', '-', $latest_post->post_title) }}-{{ $latest_post->id }}">
+                                        href="\post/{{ $url }}">
                                         {{ ($latest_post->post_title) }}</a>
                                 </h3>
                                 <div class="meta">
@@ -227,6 +244,8 @@
 
 <!-- CDN for Sweet Alert -->
 <script src="\blog/custom/sweetalert/sweetalert.min.js"></script>
+
+@yield('script')
 
 <!-- My own Custom Script -->
 <script src="\blog/custom/custom-script.js"></script>

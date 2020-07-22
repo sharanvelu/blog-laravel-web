@@ -1,10 +1,12 @@
-@extends('layouts.app')
+@extends('layouts.blog')
+
+@section('doc_title', 'List Role - Sharan\'s Blog')
 
 @section('content')
     <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Roles</h1>
-        <a href="\role/create" class="btn btn btn-primary">Create</a>
+    <div class="d-sm-flex align-items-center mb-4 justify-content-between">
+        <h1>List Roles</h1>
+        <a href="\role/create" class="custom-button-success">Create</a>
     </div>
 
     <!-- Role List -->
@@ -24,9 +26,33 @@
         </form>
     </div>
 
+
+    <!-- Divider -->
+    <hr class="mb-5 mt-lg-5">
+    <!-- Related Links -->
+    <div class="mb-4">
+        <h3>Related Links</h3>
+    </div>
+
+    <a class="m-3" href="{{ route('create') }}">
+        <div class="dashboard-element dashboard-element-success">Create Post</div>
+    </a>
+
+    <a class="m-3" href="\post/home">
+        <div class="dashboard-element dashboard-element-primary">Show All Post</div>
+    </a>
+
+    <a class="m-3" href="\role/assign">
+        <div class="dashboard-element dashboard-element-secondary">Assign Roles</div>
+    </a>
+
 @endsection
 
 @section('script')
+    <!-- CDN for Yajra DataTables -->
+    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
     <script type="text/javascript">
 
         // Script for Yajra DataTables
