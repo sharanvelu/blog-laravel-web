@@ -163,7 +163,7 @@
 
                     @foreach($login_data as $data)
                             <li class="nav-item" id="nav_item_{{ $data->name }}">
-                                <a href="{{ $data->href }}" class="nav-link text-gray-700" {{ $data->attributes }}
+                                <a href="{{ $data->href }}" class="nav-link text-gray-700"
                                 @if($data->name =="Logout") onclick="event.preventDefault(); logout()" @endif>
                                     {{ $data->name }}</a>
                             </li>
