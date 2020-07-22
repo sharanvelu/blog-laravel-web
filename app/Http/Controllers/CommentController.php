@@ -53,6 +53,20 @@ class CommentController extends Controller
     public function delete($id)
     {
         Comment::find($id)->delete();
-//        Comment::where('id', $id)->delete();
+    }
+
+    /**
+     * As user types in the email id in comment section
+     * This function returns the user name if available through AJAX
+     *
+     * @return bool
+     */
+    public function getName()
+    {
+        $user_name = Comment::where('user_email', $_POST['email'])->first();
+        if ($user_name) {
+            return $user_name->user_name;
+        }
+        return false;
     }
 }

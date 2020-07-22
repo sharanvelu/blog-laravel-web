@@ -1,18 +1,6 @@
 @extends('layouts.app')
 
-@section('head')
-    <!-- CDN SummerNote Editor -->
-    <!-- include bootstrap libraries -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
-    <!-- include summernote css/js -->
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-
-    <!-- Jquery and css for tags input -->
-    <script src="\blog/custom/tags/jquery.tagsinput.js"></script>
-    <link href="\blog/custom/tags/jquery.tagsinput.css" rel="stylesheet" type="text/css" />
-
-@endsection
+@section('doc_title', 'Create Post - Sharan\'s Blog')
 
 @section('content')
     <!-- Page Heading -->
@@ -61,13 +49,24 @@
                 <button type="submit" class="btn btn-primary">
                     {{ __('Create') }}
                 </button>
-                <button type="reset" class="btn btn-outline-secondary ml-1">
-                    {{ __('Reset') }}
-                </button>
-                <a class="btn btn-outline-secondary ml-1" href="{{ __("\\showUserPost") }}">Cancel</a>
+                <a class="btn btn-outline-secondary ml-1" href="{{ __("\\post/home") }}">Cancel</a>
             </div>
         </div>
     </form>
+@endsection
+
+@section('script')
+
+    <!-- CDN SummerNote Editor -->
+    <!-- include bootstrap libraries -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- include summernote css/js -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
+    <!-- Jquery and css for tags input -->
+    <script src="\blog/custom/tags/jquery.tagsinput.js"></script>
+    <link href="\blog/custom/tags/jquery.tagsinput.css" rel="stylesheet" type="text/css" />
 
     <script>
         //Summer note WYSIWYG Editor Initiator

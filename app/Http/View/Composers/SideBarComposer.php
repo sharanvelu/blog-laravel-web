@@ -2,16 +2,17 @@
 
 namespace App\Http\View\Composers;
 
+use App\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use App\Post;
 use App\Tag;
 use stdClass;
-use Illuminate\Support\Facades\Cache;
 
 class SideBarComposer
 {
 
+    protected $users;
     protected $recent_posts;
     protected $tag_cloud;
     protected $popular_tags = array();
@@ -23,13 +24,15 @@ class SideBarComposer
      */
     public function __construct()
     {
-        $this->recent_posts = Post::latest()->take(3)->get();
+        $this->users = User::get();
+        $this->recent_posts = Post::latest()->take(5)->get();
         $this->tag_cloud = Tag::latest()->get();
 
         $repeated_tags = DB::table('post_tag')
             ->select(DB::raw('count("tag_id") as repetition, tag_id'))
             ->groupBy('tag_id')
             ->orderBy('repetition', 'desc')
+            ->take(5)
             ->get();
 
         foreach ($repeated_tags as $item) {
@@ -39,16 +42,6 @@ class SideBarComposer
             array_push($this->popular_tags, $tag_content);
             unset($tag_content);
         }
-
-        Cache::remember('recent_posts', 300, function (){
-            return $this->recent_posts;
-        });
-        Cache::remember('tag_cloud', 300, function () {
-            return $this->tag_cloud;
-        });
-        Cache::remember('popular_tags', 300, function () {
-            return $this->popular_tags;
-        });
     }
 
     /**
@@ -60,9 +53,10 @@ class SideBarComposer
     public function compose(View $view)
     {
         $view->with([
-            'recent_posts' => Cache::get('recent_posts'),
-            'tag_cloud' => Cache::get('tag_cloud'),
-            'popular_tags' => Cache::get('popular_tags')
+            'users' => $this->users,
+            'recent_posts' => $this->recent_posts,
+            'tag_cloud' => $this->tag_cloud,
+            'popular_tags' => $this->popular_tags
         ]);
     }
 }
