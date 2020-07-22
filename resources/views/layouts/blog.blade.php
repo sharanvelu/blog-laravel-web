@@ -85,7 +85,7 @@
                         <div class="block-21 mb-4 d-flex">
                             <a class="img mr-4 rounded"
                                href="\post/{{ $url = $users->find($latest_post->user_id)->name.'/'.str_replace(' ', '-', $latest_post->post_title).'-'.$latest_post->id }}"
-                               style="background-image: url('{{ asset('storage/' . $latest_post->image) }}');"></a>
+                               style=""></a>
                             <div class="text">
                                 <h3 class="heading"><a
                                         href="\post/{{ $url }}">
@@ -177,7 +177,7 @@
                         <div class="block-21 mb-4 d-flex">
                             <a class="img mr-4 rounded"
                                href="\post/{{ $url = $users->find($latest_post->user_id)->name.'/'.str_replace(' ', '-', $latest_post->post_title).'-'.$latest_post->id }}"
-                               style="background-image: url('{{ asset('storage/' . $latest_post->image) }}');"></a>
+                               style=""></a>
                             <div class="text">
                                 <h3 class="heading"><a
                                         href="\post/{{ $url }}">
