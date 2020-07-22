@@ -1,9 +1,12 @@
 <?php
 
-use App\Post;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use Spatie\Searchable\Search;
+
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +30,21 @@ Route::get('/', function() {
     return redirect('post/home');
 });
 
+Route::group(['prefix' => 'search'], function () {
+    Route::get('{key}', function ($key) {
+        $searchResults_posts = (new Search())->registerModel(App\Post::class, 'post_title')
+            ->search($key);
+        $searchResults_tags = (new Search())->registerModel(App\Tag::class, 'name')
+            ->search($key);
+        return view('blog.search_result', [
+            'search_key' => $key,
+            'posts' => $searchResults_posts,
+            'tags' => $searchResults_tags
+        ]);
+    });
+    Route::post('date', 'PostController@BlogHomeByMonth');
+});
+
 //Blog Home and Single page
 Route::group(['prefix'=>'post'], function() {
     Route::get('new', 'PostController@blogPostCreate')->name('create');
@@ -48,6 +66,7 @@ Route::group(['prefix' => 'comment'], function () {
     Route::post('add', 'CommentController@add');
     Route::post('update/{id}', 'CommentController@update');
     Route::post('delete/{id}', 'CommentController@delete');
+    Route::post('get/name', 'CommentController@getName');
 });
 
 Route::group(['prefix' => 'role'], function () {

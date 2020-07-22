@@ -1,9 +1,3 @@
-{{--@extends('errors::minimal')--}}
-
-{{--@section('title', __('Not Found'))--}}
-{{--@section('code', '404')--}}
-{{--@section('message', __('Not Found'))--}}
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>404 - Not Found - Sharan's Blog</title>
+    <title>404 Not Found - Sharan's Blog</title>
 
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet">

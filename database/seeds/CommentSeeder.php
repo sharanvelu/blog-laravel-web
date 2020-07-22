@@ -7,11 +7,12 @@ class CommentSeeder extends Seeder
     /**
      * Run the database seeds.
      *
+     * @param $count
      * @return void
      */
-    public function run()
+    static public function run($count)
     {
-        factory('App\Comment', 100)->create();
+        factory('App\Comment', $count)->create();
 
     }
 }

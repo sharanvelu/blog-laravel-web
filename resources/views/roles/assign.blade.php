@@ -1,48 +1,50 @@
-@extends('layouts.app')
+@extends('layouts.blog')
+
+@section('doc_title', 'Assign Role to User - Sharan\'s Blog')
 
 @section('content')
     <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Assign Roles to Users</h1>
-        <a href="\role/create" class="btn btn btn-primary">Create Role</a>
+    <div class="d-sm-flex align-items-center mb-4 justify-content-between">
+        <h1>Assign Roles to users</h1>
+        <a href="\role/create" class="custom-button-success">Create Role</a>
     </div>
 
-    <div class="card p-3">
-        <form class="m-3">
-            @csrf
-            <div class="form-group row">
-                <label class="col-md-4 col-form-label text-md-right">User Name</label>
-                <div class="col-md-4">
-                    <select class="col-md-12" id="user_select" name="user_name">
-                        @foreach(App\User::all() as $user)
-                            <option>{{ $user->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
+    <form class="col-md-12">
+        @csrf
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label text-md-right">User Name</label>
+            <div class="col-md-5">
+                <select class="col-md-12" id="user_select" name="user_name">
+                    @foreach(App\User::all() as $user)
+                        <option>{{ $user->name }}</option>
+                    @endforeach
+                </select>
             </div>
+        </div>
 
-            <div class="form-group row">
-                <label class="col-md-4 col-form-label text-md-right">Role Name</label>
-                <div class="col-md-4 my-auto">
-                    <select class="col-md-12" id="role_select" name="role_name">
-                        @foreach(Spatie\Permission\Models\Role::all() as $role)
-                            @if( $role->name != 'SuperAdmin' )
-                                @if(Auth::user()->hasRole(['Admin']) && $role->name == 'Admin')
-                                @else
-                                    <option>{{ $role->name }}</option>
-                                @endif
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label text-md-right">Role Name</label>
+            <div class="col-md-5 my-auto">
+                <select class="col-md-12" id="role_select" name="role_name">
+                    @foreach(Spatie\Permission\Models\Role::all() as $role)
+                        @if( $role->name != 'SuperAdmin' )
+                            @if(Auth::user()->hasRole(['Admin']) && $role->name == 'Admin')
+                            @else
+                                <option>{{ $role->name }}</option>
                             @endif
-                        @endforeach
-                    </select>
-                </div>
-                <button type="button" class="ml-4 my-auto btn btn-secondary" id="add_button"
-                        onclick="assignDetachRole(this.form, 'assign', this.form.user_name.value, this.form.role_name.value)">
-                    Add
-                </button>
+                        @endif
+                    @endforeach
+                </select>
             </div>
-        </form>
+            <button type="button" class="ml-4 my-auto btn btn-secondary" id="add_button"
+                    onclick="assignDetachRole(this.form, 'assign', this.form.user_name.value, this.form.role_name.value)">
+                Add
+            </button>
+        </div>
+    </form>
 
-        <form class="col-10 align-self-center border p-3">
+    <div class="card card-body">
+        <form>
             @csrf
             <table id="user_role_table" class="table table-hover table-condensed" style="width:100%">
                 <thead>
@@ -56,59 +58,41 @@
         </form>
     </div>
 
-    <div class="modal fade" id="edit_user_role_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Update the Role</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <form class="m-3">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="form-group row">
-                            <label class="col-md-4 col-form-label text-md-right">User Name</label>
-                            <div>
-                                <input class="border-0 bg-transparent" id="user_select_modal"
-                                       name="user_name" value="" disabled>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-md-4 col-form-label text-md-right">Role Name</label>
-                            <select id="role_select_modal" name="role_name" class="col-md-12">
-                                @foreach(Spatie\Permission\Models\Role::all() as $role)
-                                    @if( $role->name != 'SuperAdmin' )
-                                        @if(Auth::user()->hasRole(['Admin']) && $role->name == 'Admin')
-                                        @else
-                                            <option>{{ $role->name }}</option>
-                                        @endif
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-outline-secondary" id="cancel_user_role_modal"
-                                type="button" data-dismiss="modal">Cancel
-                        </button>
-                        <button type="button" class="my-auto btn btn-primary" id="update_button_modal"
-                                onclick="assignDetachRole(this.form, 'sync', this.form.user_name.value, this.form.role_name.value)">
-                            Update
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
+    <div id="csrf_form">
+        <form>@csrf
+            <input type="text" value="" hidden id="csrf_form_user_name" name="user_name">
+            <button type="button" hidden id="csrf_form_button" onclick="editUserRole(this.form)"></button>
+        </form>
     </div>
+
+
+    <!-- Divider -->
+    <hr class="mb-5 mt-lg-5">
+    <!-- Related Links -->
+    <div class="mb-4">
+        <h3>Related Links</h3>
+    </div>
+
+    <a class="m-3" href="{{ route('create') }}">
+        <div class="dashboard-element dashboard-element-success">Create Post</div>
+    </a>
+
+    <a class="m-3" href="\post/home">
+        <div class="dashboard-element dashboard-element-primary">Show All Post</div>
+    </a>
+
+    <a class="m-3" href="\role/list">
+        <div class="dashboard-element dashboard-element-secondary">List Roles</div>
+    </a>
+
 @endsection
 
 @section('script')
-    <script type="text/javascript">
+    <!-- CDN for Yajra DataTables -->
+    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
+    <script type="text/javascript">
         // Script for Yajra DataTables
         $(document).ready(function () {
             $('#user_role_table').DataTable({
@@ -171,7 +155,47 @@
         }
 
         function updateUserRole(user_name) {
-            $('#user_select_modal').val(user_name);
+            $('#csrf_form_user_name').val(user_name);
+            $('#csrf_form_button').trigger('click');
+        }
+
+        function editUserRole(form) {
+            swal({
+                title: 'Update the role',
+                text: 'User Name : ' + form.user_name.value,
+                icon: 'info',
+                buttons: {
+            @foreach(Spatie\Permission\Models\Role::all() as $role)
+            @if( $role->name != 'SuperAdmin' )
+            @if(Auth::user()->hasRole(['Admin']) && $role->name == 'Admin')
+            @else
+            {{ $role->name }}:
+            {
+                text: '{{ $role->name }}',
+                    value
+            :
+                '{{ $role->name }}'
+            }
+        ,
+            @endif
+                @endif
+                @endforeach
+                cancel: {
+                text: "Close",
+                    visible
+            :
+                true,
+                    closeModal
+            :
+                true,
+            }
+        }
+        }).
+            then((value) => {
+                if (value) {
+                    assignDetachRole(form, 'sync', form.user_name.value, value);
+                }
+            })
         }
 
         function buttonDisableTrue() {

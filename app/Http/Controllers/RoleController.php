@@ -147,12 +147,12 @@ class RoleController extends Controller
                 } elseif (Auth::user()->hasRole('Admin') && $data->name == 'Admin'){
                     $button = " ---------- ";
                 } else {
-                    $button = '<a class="btn-circle btn-sm btn-primary mr-1"
-                                href="\\role/update/'.$data->name.'">
-                                <i class="fas fa-fw fa-edit"></i></a>';
-                    $button .= '<button class="btn-circle btn-sm btn-danger text-white mr-1" type="button"
-                                onclick="deleteRole( \'' . $data->name . '\', this.form)" >
-                                <i class="fas fa-fw fa-trash-alt"></i></button>';
+                    $button = '<a href="\\role/update/'.$data->name.'">
+                                <span class="mr-1 custom-button-primary">
+                                <i class="fas fa-fw fa-edit"></i></span></a>';
+                    $button .= '<a type="button" onclick="deleteRole( \'' . $data->name . '\', this.form)" >
+                                <span class="custom-button-danger">
+                                <i class="fas fa-fw fa-trash-alt"></i></span></a>';
                 }
                 return $button;
             })->make(true);
@@ -188,12 +188,11 @@ class RoleController extends Controller
                 } elseif (Auth::user()->hasRole('Admin') && $user_role['role'] == 'Admin'){
                     $button = " ----- ";
                 } else {
-                    $button = '<a class="btn-circle btn-sm btn-primary mr-1" href="#"
-                                data-toggle="modal" data-target="#edit_user_role_modal"
-                                onclick="updateUserRole(\''.$user_role['user_name'].'\')">
+                    $button = '<a class="custom-button-success mr-1" href="#"
+                                onclick="event.preventDefault(); updateUserRole(\''.$user_role['user_name'].'\')">
                                 <i class="fas fa-fw fa-edit"></i>
                                 </a>';
-                    $button .= '<button class="btn-circle btn-sm btn-danger text-white mr-1" type="button" id="del_button"
+                    $button .= '<button class="custom-button-danger mr-1" type="button"
                                 onclick="assignDetachRole(this.form, \'detach\',\'' .$user_role['user_name']. '\', \'' . $user_role['role']. '\')" >
                                 <i class="fas fa-fw fa-trash-alt"></i></button>';
                 }

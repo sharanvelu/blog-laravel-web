@@ -1,27 +1,15 @@
-@extends('layouts.app')
+@extends('layouts.blog')
+
+@section('doc_title', 'Update Role - Sharan\'s Blog')
 
 @section('content')
-
     <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Update Roles</h1>
+    <div class="d-sm-flex align-items-center mb-4 justify-content-between">
+        <h1>Update Roles</h1>
     </div>
-
-    @if ($errors->any())
-        <div class="d-flex justify-content-center">
-            <div class="alert alert-danger col-8">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        </div>
-    @endif
-
     <!-- Role Create Form -->
     <form method="POST" action="\role/update/{{ $role->name }}"
-          class="content col-11 mx-auto my-3">
+          class="content col-md-12 mx-auto my-3">
         @csrf
 
         <div class="form-group row">
