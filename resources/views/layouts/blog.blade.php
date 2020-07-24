@@ -87,7 +87,7 @@
                         <div class="block-21 mb-4 d-flex">
                             <a class="img mr-4 rounded"
                                href="\post/{{ $url = $users->find($latest_post->user_id)->name.'/'.str_replace(' ', '-', $latest_post->post_title).'-'.$latest_post->id }}"
-                               style="background-image: url('https://raw.githubusercontent.com/catrispics/catrisphotography/master/Stone.jpg');"></a>
+                               style="background-image: url('https://t2r6u7f9.rocketcdn.me/figz/wp-content/seloads/2016/03/google-code-seo-algorithm6-ss-1920-800x450.jpg');"></a>
                             <div class="text">
                                 <h3 class="heading"><a
                                         href="\post/{{ $url }}">
@@ -179,7 +179,7 @@
                         <div class="block-21 mb-4 d-flex">
                             <a class="img mr-4 rounded"
                                href="\post/{{ $url = $users->find($latest_post->user_id)->name.'/'.str_replace(' ', '-', $latest_post->post_title).'-'.$latest_post->id }}"
-                               style="background-image: url('https://raw.githubusercontent.com/catrispics/catrisphotography/master/Stone.jpg');"></a>
+                               style="background-image: url('https://t2r6u7f9.rocketcdn.me/figz/wp-content/seloads/2016/03/google-code-seo-algorithm6-ss-1920-800x450.jpg');"></a>
                             <div class="text">
                                 <h3 class="heading"><a
                                         href="\post/{{ $url }}">
