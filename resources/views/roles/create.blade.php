@@ -1,9 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.blog')
+
+@section('doc_title', 'Create Role - Sharan\'s Blog')
 
 @section('content')
     <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Create Roles</h1>
+    <div class="d-sm-flex align-items-center mb-4 justify-content-between">
+        <h1>Create Roles</h1>
     </div>
 
     @if ($errors->any())
@@ -20,7 +22,7 @@
 
     <!-- Role Create Form -->
     <form method="POST" action="\role/add"
-          class="content col-11 mx-auto my-3">
+          class="content col-md-12 mx-auto my-3">
         @csrf
 
         <div class="form-group row">

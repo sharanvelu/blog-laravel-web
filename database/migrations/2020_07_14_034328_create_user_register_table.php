@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreateUserRegisterTable extends Migration
@@ -18,6 +19,7 @@ class CreateUserRegisterTable extends Migration
             $table->boolean('allow_register');
             $table->timestamps();
         });
+        DB::table('user_register')->insert(['allow_register'=>true]);
     }
 
     /**

@@ -8,8 +8,8 @@ use Faker\Generator as Faker;
 $factory->define(Post::class, function (Faker $faker) {
     return [
         'post_title' => $faker->text('100'),
-        'post_description' => "<p>" . $faker->realText(15000) . "</p><p>" . $faker->realText(15000) . "</p>",
-        'image' => 'images/0osO20Rc3wFG08iGbnxJaUEC3te0VcCCNZe1zqZD.jpeg',
-        'user_id' => $faker->numberBetween(1,10),
+        'post_description' => "<p>" . $faker->realText(1500) . "</p><p>" . $faker->realText(1500) . "</p>",
+        'image' => 'seeding_images/image' . $faker->numberBetween(1, 10),
+        'user_id' => $faker->numberBetween(1,App\User::count()),
     ];
 });

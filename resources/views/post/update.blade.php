@@ -1,18 +1,6 @@
 @extends('layouts.app')
 
-@section('head')
-    <!-- CDN SummerNote Editor -->
-    <!-- include bootstrap libraries -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
-    <!-- include summernote css/js -->
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-
-    <!-- Jquery and css for tags -->
-    <script src="\tags_jquery/jquery.tagsinput.js"></script>
-    <link rel="stylesheet" type="text/css" href="\tags_jquery/jquery.tagsinput.css" />
-
-@endsection
+@section('doc_title', 'Update Post - Sharan\'s Blog')
 
 @section('content')
     <!-- Page Heading -->
@@ -33,7 +21,8 @@
     @endif
 
     <!-- Post Create Form -->
-    <form method="POST" action="\post/update/{{ $post->id }}" class="content col-11 mx-auto my-3" enctype="multipart/form-data">
+    <form method="POST" action="\post/update/{{ $post->id }}" class="content col-11 mx-auto my-3"
+          enctype="multipart/form-data">
         @csrf
 
         <div class="form-group my-6">
@@ -49,8 +38,8 @@
 
         <div class="form-group">
             <label>Image</label>
-            <input type="file" class="form-control" name="image" />
-            <input type="text" value="{{ $post->image }}" hidden name="img" />
+            <input type="file" class="form-control" name="image"/>
+            <input type="text" value="{{ $post->image }}" hidden name="img"/>
         </div>
 
         <div class="form-group" style="max-width: 600px;">
@@ -66,6 +55,20 @@
             </div>
         </div>
     </form>
+@endsection
+
+@section('script')
+
+    <!-- CDN SummerNote Editor -->
+    <!-- include bootstrap libraries -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- include summernote css/js -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
+    <!-- Jquery and css for tags -->
+    <script src="\tags_jquery/jquery.tagsinput.js"></script>
+    <link rel="stylesheet" type="text/css" href="\tags_jquery/jquery.tagsinput.css"/>
 
     <script>
         //Summer note WYSIWYG Editor Initiator

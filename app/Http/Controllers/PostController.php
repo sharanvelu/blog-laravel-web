@@ -6,7 +6,10 @@ use App\Post;
 use App\Http\Requests\StorePost;
 use App\Tag;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\File;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\DataTables;
@@ -37,8 +40,7 @@ class PostController extends Controller
             'post_title' => $request->PostTitle,
             'post_description' => $request->PostDescription,
             'image' => $request->hasFile('image') ?
-                Storage::putFile('images', new File($request->file('image')
-                    ->getPathname()))
+                Storage::putFile('images', new File($request->file('image')->getPathname()))
                 : "",
             'user_id' => Auth::id()
         ]);
@@ -49,6 +51,10 @@ class PostController extends Controller
                 $post->tags()->attach($tags->id);
             }
         }
+
+        // Event trigger for sending mail
+        event(new \App\Events\PostCreated($post));
+
         //Browser Redirection to post Show page
         return redirect('post/' . $post->user->name . '/' . str_replace(' ', '-', $post->post_title) . '-' . $post->id);
     }
@@ -67,6 +73,9 @@ class PostController extends Controller
         $post = Post::find($id);
         $post->delete();
         Storage::delete($post->image);
+
+        // Event trigger for sending mail
+        event(new \App\Events\PostDeleted($post));
     }
 
     /**
@@ -75,7 +84,7 @@ class PostController extends Controller
     public function blogPostCreate()
     {
         $this->checkPermission('create-post');
-        return view('createPost');
+        return view('post.create');
     }
 
     /**
@@ -84,7 +93,7 @@ class PostController extends Controller
     public function blogHome()
     {
         return view('blog.home', [
-            'posts' => Post::all(),
+            'posts' => Post::paginate(5),
         ]);
     }
 
@@ -94,8 +103,11 @@ class PostController extends Controller
      */
     public function blogHomeTag($tag_name)
     {
+        $posts = Tag::where('name', $tag_name)->firstOrFail()->posts;
+        $posts = new Paginator($posts, 5);
+        $posts->withPath('\post/tag/' . $tag_name);
         return view('blog.home', [
-            'posts' => Tag::where('name', $tag_name)->firstOrFail()->posts
+            'posts' => $posts
         ]);
     }
 
@@ -107,7 +119,23 @@ class PostController extends Controller
     {
         $user = User::where('name', $username)->firstOrFail();
         return view('blog.home', [
-            'posts' => $user->posts,
+            'posts' => Post::where('user_id', $user->id)->paginate(5),
+        ]);
+    }
+
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function BlogHomeByMonth()
+    {
+        $date = strtotime($_POST['key']);
+        $from = Carbon::create(date('Y', $date), date('m', $date), 01);
+        $to = Carbon::create(date('Y', $date), date('m', $date), date('t'));
+
+        $posts = Post::whereBetween('created_at', [$from, $to])->paginate(5);
+        return view('blog.home', [
+            'title' => 'Posts By month : ' . date('F', $date),
+            'posts'=>$posts
         ]);
     }
 
@@ -128,7 +156,7 @@ class PostController extends Controller
     public function edit($id)
     {
         abort_unless(Auth::user()->hasPermissionTo('edit-post') or Auth::id() == $id, 404);
-        return view('update_post', [
+        return view('post.update', [
             'post' => Post::findOrFail($id)
         ]);
     }
@@ -147,14 +175,18 @@ class PostController extends Controller
         $post = Post::find($id)->update([
             'post_title' => $request->PostTitle,
             'post_description' => $request->PostDescription,
-            'image' => $request->hasFile('image') ?
-                Storage::putFile('images', new File($request->file('image')
-                    ->getPathname()))
-                : $_POST['img'] ? $_POST['img'] : "" ,
+            'image' => $request->hasFile('image')
+                ? Storage::putFile('images', new File($request->file('image')->getPathname()))
+                : ( $_POST['img'] ? $_POST['img'] : "" ) ,
         ]);
         if ($post) { $post = Post::find($id); }
+
+        // Event trigger for sending mail
+        event(new \App\Events\PostUpdated($post));
+
         //Browser Redirection to post Show page
-        return redirect('post/' . $post->user->name . '/' . str_replace(' ', '-', $post->post_title) . '-' . $post->id);
+        return redirect('post/' . $post->user->name . '/' .
+            str_replace('?','-', str_replace(' ', '-', $post->post_title)). '-' . $post->id);
     }
 
     /**
