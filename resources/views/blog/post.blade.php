@@ -23,7 +23,7 @@
     <p class="text-gray-100 font-weight-light"><span class="icon-calendar"></span>
         {{ date("F j, Y ", strtotime($post->created_at)) }}</p>
     <p class="mb-5">
-        <img src="{{ asset('storage/'.$post->image) }}" alt="{{ $post->post_title }}-image" class="img-fluid"></p>
+        <img src="https://t2r6u7f9.rocketcdn.me/figz/wp-content/seloads/2016/03/google-code-seo-algorithm6-ss-1920-800x450.jpg" alt="{{ $post->post_title }}-image" class="img-fluid"></p>
     <div>
         <?php echo $post->post_description ?>
     </div>

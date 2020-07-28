@@ -160,9 +160,11 @@
 
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto mr-5">
+                    <li class="nav-item"><a href="\post/home" class="nav-link text-gray-700">Home</a></li>
+                    <li class="nav-item"><a href="#contact" class="nav-link text-gray-700">Contact</a></li>
 
                     @foreach($login_data as $data)
-                            <li class="nav-item" id="nav_item_{{ $data->name }}">
+                            <li class="nav-item">
                                 <a href="{{ $data->href }}" class="nav-link text-gray-700"
                                 @if($data->name =="Logout") onclick="event.preventDefault(); logout()" @endif>
                                     {{ $data->name }}</a>
