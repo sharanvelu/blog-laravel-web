@@ -51,6 +51,10 @@ class PostController extends Controller
                 $post->tags()->attach($tags->id);
             }
         }
+
+        // Event trigger for sending mail
+        event(new \App\Events\PostCreated($post));
+
         //Browser Redirection to post Show page
         return redirect('post/' . $post->user->name . '/' . str_replace(' ', '-', $post->post_title) . '-' . $post->id);
     }
@@ -69,6 +73,9 @@ class PostController extends Controller
         $post = Post::find($id);
         $post->delete();
         Storage::delete($post->image);
+
+        // Event trigger for sending mail
+        event(new \App\Events\PostDeleted($post));
     }
 
     /**
@@ -112,7 +119,7 @@ class PostController extends Controller
     {
         $user = User::where('name', $username)->firstOrFail();
         return view('blog.home', [
-            'posts' => $user->posts,
+            'posts' => Post::where('user_id', $user->id)->paginate(5),
         ]);
     }
 
@@ -173,8 +180,13 @@ class PostController extends Controller
                 : ( $_POST['img'] ? $_POST['img'] : "" ) ,
         ]);
         if ($post) { $post = Post::find($id); }
+
+        // Event trigger for sending mail
+        event(new \App\Events\PostUpdated($post));
+
         //Browser Redirection to post Show page
-        return redirect('post/' . $post->user->name . '/' . str_replace(' ', '-', $post->post_title) . '-' . $post->id);
+        return redirect('post/' . $post->user->name . '/' .
+            str_replace('?','-', str_replace(' ', '-', $post->post_title)). '-' . $post->id);
     }
 
     /**
