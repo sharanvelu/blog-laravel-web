@@ -5,6 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <link rel = "icon" href ="\blog/images/titlebar_logo.png" type = "image/x-icon">
+
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 
     <link rel="stylesheet" href="\blog/css/animate.css">
@@ -26,8 +28,8 @@
 <nav class="navbar px-md-0 navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
         <a class="navbar-brand" href="\post/home">
-            <img class="mr-3" src="{{ $site_logo }}" height="50px">
-            Sharan's<i> Blog</i>
+            <img class="m-n3" src="{{ $site_logo }}" height="80px">
+            {{--Sharan's<i> Blog</i>--}}
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
                 aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
@@ -86,7 +88,7 @@
                     @foreach($recent_posts as $latest_post)
                         <div class="block-21 mb-4 d-flex">
                             <a class="img mr-4 rounded"
-                               style="background-image: url('https://t2r6u7f9.rocketcdn.me/figz/wp-content/seloads/2016/03/google-code-seo-algorithm6-ss-1920-800x450.jpg');"
+                               style="background-image: url('{{ asset('storage/' . $latest_post->image) }}');"
                                href="\post/{{ $url = $users->find($latest_post->user_id)->name.'/'.str_replace('?','-', str_replace(' ', '-', $latest_post->post_title)).'-'.$latest_post->id }}"></a>
                             <div class="text">
                                 <h3 class="heading"><a
@@ -178,7 +180,7 @@
                     @foreach($recent_posts->take(2) as $latest_post)
                         <div class="block-21 mb-4 d-flex">
                             <a class="img mr-4 rounded"
-                               style="background-image: url('https://t2r6u7f9.rocketcdn.me/figz/wp-content/seloads/2016/03/google-code-seo-algorithm6-ss-1920-800x450.jpg');"
+                               style="background-image: url('{{ asset('storage/' . $latest_post->image) }}');"
                                href="\post/{{ $url = $users->find($latest_post->user_id)->name.'/'.str_replace('?','-', str_replace(' ', '-', $latest_post->post_title)).'-'.$latest_post->id }}"></a>
                             <div class="text">
                                 <h3 class="heading"><a

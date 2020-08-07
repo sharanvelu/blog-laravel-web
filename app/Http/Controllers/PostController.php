@@ -8,12 +8,10 @@ use App\Tag;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\File;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\DataTables;
-use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
