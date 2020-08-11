@@ -83,7 +83,7 @@ class DatabaseSeeder extends Seeder
     {
         for ($i = 1; $i <= $count; $i++) {
             DB::table('tags')->insert([
-                'name' => $faker->word,
+                'name' => $faker->unique()->word,
                 'created_at' => $faker->dateTimeThisYear(),
                 'updated_at' => $faker->dateTimeThisYear()
             ]);

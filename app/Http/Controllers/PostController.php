@@ -91,7 +91,7 @@ class PostController extends Controller
     public function blogHome()
     {
         return view('blog.home', [
-            'posts' => Post::paginate(5),
+            'posts' => Post::orderBy('id', 'DESC')->paginate(5),
         ]);
     }
 
@@ -131,10 +131,8 @@ class PostController extends Controller
         $to = Carbon::create(date('Y', $date), date('m', $date), date('t'));
 
         $posts = Post::whereBetween('created_at', [$from, $to])->paginate(5);
-        return view('blog.home', [
-            'title' => 'Posts By month : ' . date('F', $date),
-            'posts'=>$posts
-        ]);
+        $title = 'Posts By month : ' . date('F', $date);
+        return view('blog.home', compact('title', 'posts'));
     }
 
     /**
@@ -148,7 +146,10 @@ class PostController extends Controller
         $user = User::where('name', $username)->firstOrFail();
         $post = Post::findOrFail(end($url_array));
         abort_if($user->id != $post->user_id, 404);
-        return view('blog.post', ['post' => $post]);
+        return view('blog.post', [
+            'post' => $post,
+            'tags' => $post->tags
+        ]);
     }
 
     public function edit($id)

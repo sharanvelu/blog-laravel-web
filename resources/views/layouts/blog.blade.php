@@ -88,7 +88,7 @@
                     @foreach($recent_posts as $latest_post)
                         <div class="block-21 mb-4 d-flex">
                             <a class="img mr-4 rounded"
-                               style="background-image: url('{{ asset('storage/' . $latest_post->image) }}');"
+                               style="background-image: url('{{ $latest_post->image }}');"
                                href="\post/{{ $url = $users->find($latest_post->user_id)->name.'/'.str_replace('?','-', str_replace(' ', '-', $latest_post->post_title)).'-'.$latest_post->id }}"></a>
                             <div class="text">
                                 <h3 class="heading"><a
@@ -165,9 +165,9 @@
                     <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there
                         live the blind texts.</p>
                     <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-                        <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                        <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                        <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+                        <li class="ftco-animate"><a><span class="icon-twitter"></span></a></li>
+                        <li class="ftco-animate"><a><span class="icon-facebook"></span></a></li>
+                        <li class="ftco-animate"><a><span class="icon-instagram"></span></a></li>
                     </ul>
                 </div>
             </div>
@@ -180,7 +180,7 @@
                     @foreach($recent_posts->take(2) as $latest_post)
                         <div class="block-21 mb-4 d-flex">
                             <a class="img mr-4 rounded"
-                               style="background-image: url('{{ asset('storage/' . $latest_post->image) }}');"
+                               style="background-image: url('{{ $latest_post->image }}');"
                                href="\post/{{ $url = $users->find($latest_post->user_id)->name.'/'.str_replace('?','-', str_replace(' ', '-', $latest_post->post_title)).'-'.$latest_post->id }}"></a>
                             <div class="text">
                                 <h3 class="heading"><a
@@ -226,11 +226,11 @@
                     <h2 class="ftco-heading-2">Have a Questions?</h2>
                     <div class="block-23 mb-3">
                         <ul>
-                            <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span>
+                            <li><span class="icon icon-map-marker"></span><span class="text">2/34, S.Pudhupalayam, P.Velur(TK), Namakkal(DT), 637212</span>
                             </li>
-                            <li><a href="#"><span class="icon icon-phone"></span><span
-                                        class="text">+2 392 3929 210</span></a></li>
-                            <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a>
+                            <li><a><span class="icon icon-phone"></span><span
+                                        class="text">+91 984320 7572</span></a></li>
+                            <li><a><span class="icon icon-envelope"></span><span class="text">mail@sharanvelu.xyz</span></a>
                             </li>
                         </ul>
                     </div>

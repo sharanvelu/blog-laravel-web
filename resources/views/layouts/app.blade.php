@@ -208,13 +208,13 @@
     @csrf
 </form>
 
-@yield('script')
-
 <!-- CDN for Sweet Alert -->
 <script src="\blog/custom/sweetalert/sweetalert.min.js"></script>
 
 <!-- My own Custom Script -->
 <script src="\blog/custom/custom-script.js"></script>
+
+@yield('script')
 
 </body>
 
