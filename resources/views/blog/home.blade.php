@@ -15,7 +15,7 @@
     @foreach($posts as $post)
         <div class="blog-entry justify-content-end ftco-animate rounded">
             <a class="block-20"
-               style="background-image: url('{!! $post->image !!}}');"
+               style="background-image: url('{!! $post->image !!}');"
                href="\post/{{ $post_user_name = $users->find($post->user_id)->name }}/{{ str_replace('?','-', str_replace(' ', '-', $post->post_title)) }}-{{ $post->id }}">
             </a>
             <div class="text p-4 float-right d-block">
