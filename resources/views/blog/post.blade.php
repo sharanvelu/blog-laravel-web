@@ -23,12 +23,11 @@
     <p class="text-gray-100 font-weight-light"><span class="icon-calendar"></span>
         {{ date("F j, Y ", strtotime($post->created_at)) }}</p>
     <p class="mb-5">
-        <img src="https://t2r6u7f9.rocketcdn.me/figz/wp-content/seloads/2016/03/google-code-seo-algorithm6-ss-1920-800x450.jpg" alt="{{ $post->post_title }}-image" class="img-fluid"></p>
+        <img src="{{ $post->image }}" alt="{{ $post->post_title }}-image" class="img-fluid"></p>
     <div>
-        <?php echo $post->post_description ?>
+        {!! $post->post_description !!}
     </div>
     <!-- Tags -->
-    <?php $tags = $post->tags ?>
     @if($tags->count())
         <div class="tag-widget post-tag-container mb-5 mt-5">
             <div class="tagcloud">

@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
 
         $this->seedUser($count = 04);               // Users table
         $this->seedPost($count = 30);               // Posts table
-        $this->seedComment($count = 100);           // Comments table
+        $this->seedComment($count = 120);           // Comments table
         $this->seedTag($count = 20, $faker);        // Tags table
         $this->seedPostTag($count = 05, $faker);    // post_tag table
         $this->createRolePermission();              // Roles and Permission
@@ -83,7 +83,7 @@ class DatabaseSeeder extends Seeder
     {
         for ($i = 1; $i <= $count; $i++) {
             DB::table('tags')->insert([
-                'name' => $faker->word,
+                'name' => $faker->unique()->word,
                 'created_at' => $faker->dateTimeThisYear(),
                 'updated_at' => $faker->dateTimeThisYear()
             ]);
@@ -96,13 +96,15 @@ class DatabaseSeeder extends Seeder
      *
      * "Tags per Post" is given as parameter-$count
      *
-     * @param $count
+     * @param $avg_count
      * @param $faker
      *
      */
-    private function seedPostTag($count, $faker)
+    private function seedPostTag($avg_count, $faker)
     {
-        $unique = array();  // Empty array to store the data(post_id, tag_id)
+        if ($avg_count < 3) { $avg_count += 4; }
+        $count = $faker->numberBetween($avg_count - 2, $avg_count + 3);
+        $unique = array();  // Empty array to store the data[post_id, tag_id]
         // Loops through individual posts
         // ie, First post will get $count tags and the move to the next post
         for ($post_id = 1; $post_id <= App\Post::count(); $post_id++) {

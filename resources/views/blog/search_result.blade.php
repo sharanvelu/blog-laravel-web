@@ -32,7 +32,7 @@
     @foreach($posts as $post)
         <div class="blog-entry justify-content-end ftco-animate rounded">
             <a href="{{ $post->url }}"
-               class="block-20" style="background-image: url('{{ asset('storage/'.$post->searchable->image) }}');">
+               class="block-20" style="background-image: url('{{ $post->searchable->image }}');">
             </a>
             <div class="text p-4 float-right d-block">
                 <div class="topper d-flex align-items-center">
