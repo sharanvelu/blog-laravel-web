@@ -5,8 +5,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel = "icon" href ="\blog/images/titlebar_logo.png" type = "image/x-icon">
-
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 
     <link rel="stylesheet" href="\blog/css/animate.css">
@@ -28,8 +26,8 @@
 <nav class="navbar px-md-0 navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
         <a class="navbar-brand" href="\post/home">
-            <img class="m-n3" src="{{ $site_logo }}" height="80px">
-            {{--Sharan's<i> Blog</i>--}}
+            <img class="mr-3" src="{{ $site_logo }}" height="50px">
+            Sharan's<i> Blog</i>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
                 aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
@@ -88,7 +86,7 @@
                     @foreach($recent_posts as $latest_post)
                         <div class="block-21 mb-4 d-flex">
                             <a class="img mr-4 rounded"
-                               style="background-image: url('{{ $latest_post->image }}');"
+                               style="background-image: url('https://t2r6u7f9.rocketcdn.me/figz/wp-content/seloads/2016/03/google-code-seo-algorithm6-ss-1920-800x450.jpg');"
                                href="\post/{{ $url = $users->find($latest_post->user_id)->name.'/'.str_replace('?','-', str_replace(' ', '-', $latest_post->post_title)).'-'.$latest_post->id }}"></a>
                             <div class="text">
                                 <h3 class="heading"><a
@@ -165,9 +163,9 @@
                     <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there
                         live the blind texts.</p>
                     <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-                        <li class="ftco-animate"><a><span class="icon-twitter"></span></a></li>
-                        <li class="ftco-animate"><a><span class="icon-facebook"></span></a></li>
-                        <li class="ftco-animate"><a><span class="icon-instagram"></span></a></li>
+                        <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
+                        <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
+                        <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
                     </ul>
                 </div>
             </div>
@@ -180,7 +178,7 @@
                     @foreach($recent_posts->take(2) as $latest_post)
                         <div class="block-21 mb-4 d-flex">
                             <a class="img mr-4 rounded"
-                               style="background-image: url('{{ $latest_post->image }}');"
+                               style="background-image: url('https://t2r6u7f9.rocketcdn.me/figz/wp-content/seloads/2016/03/google-code-seo-algorithm6-ss-1920-800x450.jpg');"
                                href="\post/{{ $url = $users->find($latest_post->user_id)->name.'/'.str_replace('?','-', str_replace(' ', '-', $latest_post->post_title)).'-'.$latest_post->id }}"></a>
                             <div class="text">
                                 <h3 class="heading"><a
@@ -226,11 +224,11 @@
                     <h2 class="ftco-heading-2">Have a Questions?</h2>
                     <div class="block-23 mb-3">
                         <ul>
-                            <li><span class="icon icon-map-marker"></span><span class="text">2/34, S.Pudhupalayam, P.Velur(TK), Namakkal(DT), 637212</span>
+                            <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span>
                             </li>
-                            <li><a><span class="icon icon-phone"></span><span
-                                        class="text">+91 984320 7572</span></a></li>
-                            <li><a><span class="icon icon-envelope"></span><span class="text">mail@sharanvelu.xyz</span></a>
+                            <li><a href="#"><span class="icon icon-phone"></span><span
+                                        class="text">+2 392 3929 210</span></a></li>
+                            <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a>
                             </li>
                         </ul>
                     </div>

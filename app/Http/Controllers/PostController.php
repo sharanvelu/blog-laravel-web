@@ -8,10 +8,12 @@ use App\Tag;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\File;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
@@ -91,7 +93,7 @@ class PostController extends Controller
     public function blogHome()
     {
         return view('blog.home', [
-            'posts' => Post::orderBy('id', 'DESC')->paginate(5),
+            'posts' => Post::paginate(5),
         ]);
     }
 
@@ -131,8 +133,10 @@ class PostController extends Controller
         $to = Carbon::create(date('Y', $date), date('m', $date), date('t'));
 
         $posts = Post::whereBetween('created_at', [$from, $to])->paginate(5);
-        $title = 'Posts By month : ' . date('F', $date);
-        return view('blog.home', compact('title', 'posts'));
+        return view('blog.home', [
+            'title' => 'Posts By month : ' . date('F', $date),
+            'posts'=>$posts
+        ]);
     }
 
     /**
@@ -146,10 +150,7 @@ class PostController extends Controller
         $user = User::where('name', $username)->firstOrFail();
         $post = Post::findOrFail(end($url_array));
         abort_if($user->id != $post->user_id, 404);
-        return view('blog.post', [
-            'post' => $post,
-            'tags' => $post->tags
-        ]);
+        return view('blog.post', ['post' => $post]);
     }
 
     public function edit($id)

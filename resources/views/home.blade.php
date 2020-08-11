@@ -31,8 +31,9 @@
         <div class="dashboard-element dashboard-element-secondary">Assign Roles</div>
     </a>
 
-    <a class="m-3" style="cursor: pointer">
+    <a class="m-3" href="">
         <div class="dashboard-element dashboard-element-danger">
+            <!-- Default switch -->
             <div class="custom-control custom-switch">
                 <form id="new_user_toggle_form">
                     @csrf
