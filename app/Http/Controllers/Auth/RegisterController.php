@@ -38,7 +38,6 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        abort_unless(DB::table('user_register')->first()->allow_register, 404);
         $this->middleware('guest');
     }
 
@@ -65,6 +64,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        abort_unless(DB::table('user_register')->first()->allow_register, 404);
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],

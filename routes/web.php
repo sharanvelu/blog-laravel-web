@@ -2,8 +2,24 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Spatie\Searchable\Search;
+
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
+use Symfony\Contracts\EventDispatcher\Event;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
@@ -12,7 +28,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/index', 'PostController@index');
 
 //Landing page
-Route::get('/', function () {
+Route::get('/', function() {
     return redirect('post/home');
 });
 
@@ -32,7 +48,7 @@ Route::group(['prefix' => 'search'], function () {
 });
 
 //Blog Home and Single page
-Route::group(['prefix' => 'post'], function () {
+Route::group(['prefix'=>'post'], function() {
     Route::get('new', 'PostController@blogPostCreate')->name('create');
     Route::get('home', 'PostController@blogHome');
     Route::get('tag/{tag_name}', 'PostController@blogHomeTag');

@@ -12,8 +12,7 @@
         }
 
         .logo {
-            height: 100px;
-            max-height: 100px;
+            width: 25px
         }
 
         .content {
@@ -66,8 +65,9 @@
             <table>
                 <tr>
                     <td>
-                        <img class="logo" src="{{ $message->embed('http://homestead.blog/blog/images/topbar_logo.png') }}">
+                        <img src="{{ 'https://homestead.blog/blog/images/topbar_logo.png' }}" class="logo">
                     </td>
+                    <td><h1 style="margin-top: 10px">Sharan's Blog</h1></td>
                 </tr>
             </table>
         </a>
@@ -79,7 +79,7 @@
             {{ "Your post has been $crud Successfully" }}
         </h3>
         <br>
-        <img class="post-image" src="{{ $message->embed(asset('storage/'.$post->image)) }}">
+        <img class="post-image" src="{{ asset('storage/'.$post->image) }}" alt="{{$post->post_title}}"/>
         <br>
         <h2 class="post-title" style="text-align: center; color: #7f7f7f;">
             {{ $post->post_title }}
