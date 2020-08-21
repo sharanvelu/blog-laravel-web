@@ -5,12 +5,10 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Sharan's Blog">
-    <meta name="author" content="Sharan">
+    <meta name="description" content="">
+    <meta name="author" content="">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <link rel="icon" href="\blog/images/titlebar_logo.png" type="image/x-icon">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
@@ -47,14 +45,12 @@
     <!-- Sidebar Beginning -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="ml-4 mt-4 d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center m-5" href="{{ route('home') }}">
-                <img src="{{ $site_logo }}" height="80px">
-            </a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home') }}">
                 <div class="sidebar-brand-text mx-3">
                     {{ Auth::user()->name }}
@@ -156,11 +152,11 @@
                 </button>
 
                 <!-- Topbar Title -->
-{{--                <div class="d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100">--}}
-{{--                    <div class="input-group">--}}
-{{--                        <h1 class="h3">Sharan's Blog</h1>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
+                <div class="d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100">
+                    <div class="input-group">
+                        <h1 class="h3">Sharan's Blog</h1>
+                    </div>
+                </div>
 
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto mr-5">
@@ -168,11 +164,11 @@
                     <li class="nav-item"><a href="#contact" class="nav-link text-gray-700">Contact</a></li>
 
                     @foreach($login_data as $data)
-                        <li class="nav-item">
-                            <a href="{{ $data->href }}" class="nav-link text-gray-700"
-                               @if($data->name =="Logout") onclick="event.preventDefault(); logout()" @endif>
-                                {{ $data->name }}</a>
-                        </li>
+                            <li class="nav-item">
+                                <a href="{{ $data->href }}" class="nav-link text-gray-700"
+                                @if($data->name =="Logout") onclick="event.preventDefault(); logout()" @endif>
+                                    {{ $data->name }}</a>
+                            </li>
                     @endforeach
 
                 </ul>

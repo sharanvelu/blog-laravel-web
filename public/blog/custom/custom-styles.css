@@ -10,7 +10,6 @@ span.paginate-disabled {
 
 .tag-cloud-link:hover {
     background-color: #ffd369;
-    border-radius: 20px;
 }
 
 .blog-entry {
@@ -22,6 +21,7 @@ span.paginate-disabled {
 }
 
 .dashboard-element {
+    box-shadow: 5px 5px 10px -8px #727272;
     border-radius: 5px;
     padding: 30px 0 30px 50px;
     font-size: 20px;
@@ -30,7 +30,7 @@ span.paginate-disabled {
 
 .dashboard-element:hover {
     box-shadow: 5px 5px 10px #727272;
-    margin: -3px 3px 3px -3px;
+    color: #ff9900;
 }
 
 .dashboard-element-success {
