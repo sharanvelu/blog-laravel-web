@@ -23,7 +23,7 @@
     <p class="text-gray-100 font-weight-light"><span class="icon-calendar"></span>
         {{ date("F j, Y ", strtotime($post->created_at)) }}</p>
     <p class="mb-5">
-        <img src="{{ $post->image }}" alt="{{ $post->post_title }}-image" class="img-fluid"></p>
+        <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->post_title }}-image" class="img-fluid"></p>
     <div>
         {!! $post->post_description !!}
     </div>

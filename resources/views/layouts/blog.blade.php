@@ -88,7 +88,7 @@
                     @foreach($recent_posts as $latest_post)
                         <div class="block-21 mb-4 d-flex">
                             <a class="img mr-4 rounded"
-                               style="background-image: url('{{ $latest_post->image }}');"
+                               style="background-image: url('{{ asset('storage/' . $latest_post->image) }}');"
                                href="\post/{{ $url = $users->find($latest_post->user_id)->name.'/'.str_replace('?','-', str_replace(' ', '-', $latest_post->post_title)).'-'.$latest_post->id }}"></a>
                             <div class="text">
                                 <h3 class="heading"><a
@@ -180,7 +180,7 @@
                     @foreach($recent_posts->take(2) as $latest_post)
                         <div class="block-21 mb-4 d-flex">
                             <a class="img mr-4 rounded"
-                               style="background-image: url('{{ $latest_post->image }}');"
+                               style="background-image: url('{{ asset('storage/' . $latest_post->image) }}');"
                                href="\post/{{ $url = $users->find($latest_post->user_id)->name.'/'.str_replace('?','-', str_replace(' ', '-', $latest_post->post_title)).'-'.$latest_post->id }}"></a>
                             <div class="text">
                                 <h3 class="heading"><a
@@ -229,7 +229,7 @@
                             <li><span class="icon icon-map-marker"></span><span class="text">2/34, S.Pudhupalayam, P.Velur(TK), Namakkal(DT), 637212</span>
                             </li>
                             <li><a><span class="icon icon-phone"></span><span
-                                        class="text">+91 984320 7572</span></a></li>
+                                        class="text">+91 98432 07572</span></a></li>
                             <li><a><span class="icon icon-envelope"></span><span class="text">mail@sharanvelu.xyz</span></a>
                             </li>
                         </ul>
