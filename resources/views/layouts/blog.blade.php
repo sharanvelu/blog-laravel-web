@@ -179,7 +179,7 @@
         <span class="h3 mx-3">Sharan</span>
         <i class="fas fa-wind fa-2x"></i>
     </div>
-    <div class="container pb-3 h3">
+    <div class="container pb-3 h3 mb-0">
         <ul class="list-unstyled row m-0 justify-content-center">
             <li><a href="#" class="text-dark"><i class="fab fa-twitter"></i></a></li>
             <li class="mx-3"><a href="#" class="text-dark"><i class="fab fa-facebook"></i></a></li>

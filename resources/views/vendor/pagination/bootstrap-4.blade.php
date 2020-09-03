@@ -4,27 +4,27 @@
 
             {{-- Previous Page Link --}}
             @if ($paginator->onFirstPage())
-                <li>&laquo;</li>
-                <li>&lt;</li>
+                <li><div class="disabled">&laquo;</div></li>
+                <li><div class="disabled">&lt;</div></li>
             @else
-                <li><a href="{{ $paginator->path() . '?page=1' }}">&laquo;</a></li>
-                <li><a href="{{ $paginator->previousPageUrl() }}">&lt;</a></li>
+                <li><a href="{{ $paginator->path() . '?page=1' }}"><div class="disabled">&laquo;</div></a></li>
+                <li><a href="{{ $paginator->previousPageUrl() }}"><div class="disabled">&lt;</div></a></li>
             @endif
 
             {{-- Pagination Elements --}}
             @foreach ($elements as $element)
                 {{-- "Three Dots" Separator --}}
                 @if (is_string($element))
-                    <li>{{ $element }}</li>
+                    <li><div class="disabled">{{ $element }}</div></li>
                 @endif
 
                 {{-- Array Of Links --}}
                 @if (is_array($element))
                     @foreach ($element as $page => $url)
                         @if ($page == $paginator->currentPage())
-                            <li class="active">{{ $page }}</li>
+                            <li><div class="active">{{ $page }}</div></li>
                         @else
-                            <li><a href="{{ $url }}">{{ $page }}</a></li>
+                            <li><a href="{{ $url }}"><div>{{ $page }}</div></a></li>
                         @endif
                     @endforeach
                 @endif
@@ -32,12 +32,11 @@
 
             {{-- Next Page Link --}}
             @if ($paginator->hasMorePages())
-                <li><a class="paginate-hover" href="{{ $paginator->nextPageUrl() }}">&gt;</a></li>
-                <li><a class="paginate-hover" href="{{ $paginator->path() . '?page=' . $paginator->lastPage() }}">
-                        &raquo;</a></li>
+                <li><a href="{{ $paginator->nextPageUrl() }}"><div>&gt;</div></a></li>
+                <li><a href="{{ $paginator->path() . '?page=' . $paginator->lastPage() }}"><div>&raquo;</div></a></li>
             @else
-                <li>&gt;</li>
-                <li>&raquo;</li>
+                <li><div>&gt;</div></li>
+                <li><div>&raquo;</div></li>
             @endif
         </ul>
     </div>
