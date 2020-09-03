@@ -5,11 +5,11 @@
 @section('content')
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center mb-4 justify-content-between">
-        <h1>Assign Roles to users</h1>
-        <a href="\role/create" class="custom-button-success">Create Role</a>
+        <h2>Assign Roles to users</h2>
+        <a href="\role/create" class="custom-button-success text-decoration-none">Create Role</a>
     </div>
 
-    <form class="col-md-12">
+    <form class="col-md-12 border rounded shadow p-5 mb-5">
         @csrf
         <div class="form-group row">
             <label class="col-md-3 col-form-label text-md-right">User Name</label>
@@ -43,7 +43,7 @@
         </div>
     </form>
 
-    <div class="card card-body">
+    <div class="card card-body shadow">
         <form>
             @csrf
             <table id="user_role_table" class="table table-hover table-condensed" style="width:100%">
@@ -65,23 +65,23 @@
         </form>
     </div>
 
-
     <!-- Divider -->
     <hr class="mb-5 mt-lg-5">
+
     <!-- Related Links -->
     <div class="mb-4">
         <h3>Related Links</h3>
     </div>
 
-    <a class="m-3" href="{{ route('create') }}">
+    <a class="m-3 text-decoration-none" href="{{ route('create') }}">
         <div class="dashboard-element dashboard-element-success">Create Post</div>
     </a>
 
-    <a class="m-3" href="\post/home">
+    <a class="m-3 text-decoration-none" href="\post/home">
         <div class="dashboard-element dashboard-element-primary">Show All Post</div>
     </a>
 
-    <a class="m-3" href="\role/list">
+    <a class="m-3 text-decoration-none" href="\role/list">
         <div class="dashboard-element dashboard-element-secondary">List Roles</div>
     </a>
 

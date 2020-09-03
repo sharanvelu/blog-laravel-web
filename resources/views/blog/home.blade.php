@@ -13,33 +13,33 @@
 
     <!-- Blog Post -->
     @foreach($posts as $post)
-        <div class="blog-entry justify-content-end ftco-animate rounded">
-            <a class="block-20"
-               style="background-image: url('{!! $post->image !!}');"
-               href="\post/{{ $post_user_name = $users->find($post->user_id)->name }}/{{ str_replace('?','-', str_replace(' ', '-', $post->post_title)) }}-{{ $post->id }}">
-            </a>
-            <div class="text p-4 float-right d-block">
-                <div class="topper d-flex align-items-center">
+        <a class="text-decoration-none"
+           href="\post/{{ $post_user_name = $users->find($post->user_id)->name }}/{{ str_replace('?','-', str_replace(' ', '-', $post->post_title)) }}-{{ $post->id }}">
+            <div class="post">
+                <div style="background-image: url('{!! asset('storage/' . $post->image) !!}');"
+                     class="col-12 post-img"></div>
+                <div class="time d-flex align-items-center">
                     <div class="one py-2 pl-3 pr-1 align-self-stretch">
                         <span class="day">{{ date("j", strtotime($post->created_at)) }}</span>
                     </div>
                     <div class="two pl-0 pr-3 py-2 align-self-stretch">
-                        <span class="yr">{{ date("Y", strtotime($post->created_at)) }}</span>
-                        <span class="mos">{{ date("F", strtotime($post->created_at)) }}</span>
+                        <span class="year">{{ date("Y", strtotime($post->created_at)) }}</span>
+                        <span class="month">{{ date("F", strtotime($post->created_at)) }}</span>
                     </div>
                 </div>
-                <h3 class="heading mb-3">
-                    <a href="\post/{{ $post_user_name }}/{{ str_replace(' ', '-', $post->post_title) }}-{{ $post->id }}">
-                        {{ $post->post_title }}
-                    </a>
-                </h3>
-                <p>{{ substr(html_entity_decode(strip_tags($post->post_description)), 0, 200) }}. . .</p>
-                <p>
-                    <a href="\post/{{ $post_user_name }}/{{ str_replace(' ', '-', $post->post_title) }}-{{ $post->id }}"
-                       class="btn-custom"><span class="ion-ios-arrow-round-forward mr-3"></span>Read more</a>
-                </p>
+                <div class="p-4 text-justify">
+                    <h4 class="font-weight-bold text-dark">{{ $post->post_title }}</h4>
+                    <p class="text-secondary">
+                        {{ substr($str = html_entity_decode(strip_tags($post->post_description)), 0, 150) }}
+                        @if(strlen($str) > 150) . . .@endif
+                    </p>
+                    <div class="text-secondary row m-0 justify-content-between">
+                        <div><i class="far fa-user mr-2"></i>{{ $post_user_name }}</div>
+                        <div><i class="fas fa-arrow-right mr-2 post-read-more"></i>Read more</div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </a>
     @endforeach
 
     {{ $posts->links() }}

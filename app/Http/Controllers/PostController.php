@@ -8,12 +8,10 @@ use App\Tag;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\File;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\DataTables;
-use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
@@ -93,7 +91,7 @@ class PostController extends Controller
     public function blogHome()
     {
         return view('blog.home', [
-            'posts' => Post::paginate(5),
+            'posts' => Post::orderBy('created_at', 'DESC')->paginate(5),
         ]);
     }
 
@@ -119,7 +117,8 @@ class PostController extends Controller
     {
         $user = User::where('name', $username)->firstOrFail();
         return view('blog.home', [
-            'posts' => Post::where('user_id', $user->id)->paginate(5),
+            'title' => 'Posts By User : ' . $username,
+            'posts' => Post::where('user_id', $user->id)->orderBy('created_at', 'DESC')->paginate(5),
         ]);
     }
 
@@ -129,10 +128,9 @@ class PostController extends Controller
     public function BlogHomeByMonth()
     {
         $date = strtotime($_POST['key']);
-        $from = Carbon::create(date('Y', $date), date('m', $date), 01);
-        $to = Carbon::create(date('Y', $date), date('m', $date), date('t'));
+        $month = Carbon::create(date('Y', $date), date('m', $date), 01);
 
-        $posts = Post::whereBetween('created_at', [$from, $to])->paginate(5);
+        $posts = Post::whereMonth('created_at', '=', $month)->orderBy('created_at', 'DESC')->paginate(5);
         return view('blog.home', [
             'title' => 'Posts By month : ' . date('F', $date),
             'posts'=>$posts

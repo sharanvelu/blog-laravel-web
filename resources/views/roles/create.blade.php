@@ -5,7 +5,7 @@
 @section('content')
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center mb-4 justify-content-between">
-        <h1>Create Roles</h1>
+        <h2>Create Roles</h2>
     </div>
 
     @if ($errors->any())
@@ -21,15 +21,13 @@
     @endif
 
     <!-- Role Create Form -->
-    <form method="POST" action="\role/add"
-          class="content col-md-12 mx-auto my-3">
+    <form method="POST" action="\role/add" class="content col-md-12 mx-auto my-3 p-5 border rounded shadow">
         @csrf
 
-        <div class="form-group row">
-            <label class="col-md-2 my-auto">Role Name : </label>
-            <div class="col-md-10">
-                <input type="text" class="form-control" name="role_name" required placeholder="Enter Role Name">
-            </div>
+        <div class="form-label-group">
+            <input class="form-control" placeholder="Role Name"
+                   id="role_name" type="text" name="role_name" required />
+            <label for="role_name">Role Name</label>
         </div>
 
         <div class="card my-2">
@@ -57,4 +55,24 @@
             </div>
         </div>
     </form>
+
+    <!-- Divider -->
+    <hr class="mb-5 mt-lg-5">
+
+    <!-- Related Links -->
+    <div class="mb-4">
+        <h3>Related Links</h3>
+    </div>
+
+    <a class="m-3 text-decoration-none" href="{{ route('create') }}">
+        <div class="dashboard-element dashboard-element-success">Create Post</div>
+    </a>
+
+    <a class="m-3 text-decoration-none" href="\post/home">
+        <div class="dashboard-element dashboard-element-primary">Show All Post</div>
+    </a>
+
+    <a class="m-3 text-decoration-none" href="\role/list">
+        <div class="dashboard-element dashboard-element-secondary">List Roles</div>
+    </a>
 @endsection

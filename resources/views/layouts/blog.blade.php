@@ -2,38 +2,56 @@
 <html lang="en">
 <head>
     <title>@yield('doc_title')</title>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Sharan">
 
-    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    <!-- Title Bar Icon -->
+    <link rel="shortcut icon" href="\blog/images/titlebar_logo.png"/>
 
-    <link rel="stylesheet" href="\blog/css/animate.css">
-    <link rel="stylesheet" href="\blog/css/ionicons.min.css">
-    <link rel="stylesheet" href="\blog/css/icomoon.css">
-    <link rel="stylesheet" href="\blog/css/style.css">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+            integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 
-    <!-- Custom icons for template-->
-    <link href="\vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <!-- Bootstrap CDN -->
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" rel="stylesheet">
+    <!-- JS, Popper.js, and jQuery -->
+    <script crossorigin="anonymous"
+            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+          integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+
+    <!-- Charting library -->
+    <script src="\blog/chart/echarts.min.js"></script>
+    <!-- Chartisan -->
+    <script src="\blog/chart/chartisan_echarts.js"></script>
+    <!-- Chart Custom Script -->
+    <script src="\blog/chart/chart.js"></script>
 
     <!-- My own Custom Styles -->
-    <link rel="stylesheet" href="\blog/custom/custom-styles.css">
+    <link rel="stylesheet" href="\blog/custom/style.css">
 
-    <script data-ad-client="ca-pub-3601562801028392" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- Google Adsense -->
+    <script data-ad-client="ca-pub-3601562801028392" async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
 </head>
 <body>
-
-<nav class="navbar px-md-0 navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-    <div class="container">
+<!-- Nav Bar Begins -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container py-1">
         <a class="navbar-brand" href="\post/home">
-            <img class="mr-3" src="{{ $site_logo }}" height="50px">
-            Sharan's<i> Blog</i>
+            Sharan
+        <!--<img class="mr-3" src="{{ $site_logo }}" height="70px">-->
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
-                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="oi oi-menu"></span> Menu
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav"
+                aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation">Menu
         </button>
-        <div class="collapse navbar-collapse" id="ftco-nav">
+        <div class="collapse navbar-collapse" id="nav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item" id="nav_item_home"><a href="\post/home" class="nav-link">Home</a></li>
                 <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
@@ -47,104 +65,106 @@
         </div>
     </div>
 </nav>
-<!-- END nav -->
+<!-- Nav Bar Ends -->
 
-<!-- Landing Screen -->
-<section class="hero-wrap hero-wrap-2 js-fullheight"
-         style="max-height: 120px;">
-    <div class="overlay"></div>
-</section>
+<div class="m-3 pt-4 pb-5"></div> <!-- Space -->
 
-<!-- Beginnning of the content -->
-<section class="ftco-section ftco-degree-bg">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 ftco-animate">
+<!-- Main Content Begins -->
+<div class="container">
+    <div class="row">
 
-                @yield('content')
+        <!-- Content Begins -->
+        <div class="col-lg-8 mb-5 mb-lg-0">
+            @yield('content')
+        </div>
+        <!-- Content Ends -->
 
-            </div>
+        <!-- Side Bar Begins -->
+        <div class="col-lg-4">
 
-            <!-- Side Bar -->
-            <div class="col-lg-4 sidebar pl-lg-5 ftco-animate">
-                <!-- SideBar Search -->
-                <div class="sidebar-box ftco-animate">
-                    <form class="search-form" action="#" method="get" id="sidebar_search">
-                        <div class="form-group">
-                            <span onclick="document.getElementById('sidebar_search').submit();"><i
-                                    class="icon icon-search"></i></span>
-                            <input type="text" name="key" class="form-control"
-                                   placeholder="Type a keyword and hit enter"
-                                   onkeyup="sidebarSearch()">
-                        </div>
-                    </form>
-                </div>
+            <!-- SideBar Search Begins -->
+            <form class="sidebar-elem position-relative" id="sidebar_search">
+                <input type="text" class="form-control" placeholder="Type a keyword" id="sidebar_search_input"
+                       name="key" onkeyup="sidebarSearch()"/>
+                <span onclick="document.getElementById('sidebar_search').submit();" class="search-icon">
+                        <i class="fas fa-search"></i></span>
+                <label for="sidebar_search_input"></label>
+            </form>
+            <!-- SideBar Search Ends -->
 
-                <!-- SideBar Recent Post -->
-                <div class="sidebar-box ftco-animate">
-                    <h3>Recent Post</h3>
-                    @foreach($recent_posts as $latest_post)
-                        <div class="block-21 mb-4 d-flex">
-                            <a class="img mr-4 rounded"
-                               style="background-image: url('https://t2r6u7f9.rocketcdn.me/figz/wp-content/seloads/2016/03/google-code-seo-algorithm6-ss-1920-800x450.jpg');"
-                               href="\post/{{ $url = $users->find($latest_post->user_id)->name.'/'.str_replace('?','-', str_replace(' ', '-', $latest_post->post_title)).'-'.$latest_post->id }}"></a>
-                            <div class="text">
-                                <h3 class="heading"><a
-                                        href="\post/{{ $url }}">
-                                        {{ $latest_post->post_title }}...</a>
-                                </h3>
-                                <div class="meta">
-                                    <div><a><span class="icon-calendar"></span>
-                                            {{ date("M j, Y ", strtotime($latest_post->created_at)) }}</a>
-                                    </div>
+            <!-- Recent Post Begins -->
+            <div class="sidebar-elem">
+                <h4>Recent Post</h4>
+                @foreach($recent_posts as $latest_post)
+                    <a href="\post/{{ $url = $users->find($latest_post->user_id)->name.'/'.str_replace('?','-', str_replace(' ', '-', $latest_post->post_title)).'-'.$latest_post->id }}"
+                       class="text-decoration-none">
+                        <div class="row post-sm">
+                            <div class="col-3 col-md-2 col-lg-4">
+                                <div style="background-image: url('{!! asset('storage/' . $latest_post->image) !!}')"
+                                     class="post-img"></div>
+                            </div>
+                            <div class="col-9 col-md-10 col-lg-8">
+                                <div class="post-title">{{ $latest_post->post_title }}
+                                </div>
+                                <div class="text-secondary"><span class="mr-1"><i class="far fa-user"></i></span>
+                                    {{ $users->find($latest_post->user_id)->name }}
+                                </div>
+                                <div class="text-secondary"><span class="mr-1"><i
+                                            class="far fa-calendar-alt"></i></span>
+                                    {{ date("M j, Y ", strtotime($latest_post->created_at)) }}
                                 </div>
                             </div>
                         </div>
+                    </a>
+                @endforeach
+            </div>
+            <!-- Recent Post Ends -->
+
+            <!-- Popular Tags Begins -->
+            <div class="sidebar-elem">
+                <h4>Popular Tags</h4>
+                @foreach($popular_tags as $popular_tag)
+                    <li>
+                        <a href="\post/tag/{{ $popular_tag->tag_name }}" class="text-decoration-none">
+                            <div>{{ $popular_tag->tag_name }}
+                                <span>Post Count : {{ $popular_tag->count }} <i class="fas fa-angle-right"></i></span>
+                            </div>
+                        </a>
+                    </li>
+                @endforeach
+            </div>
+            <!-- Popular Tags Ends -->
+
+            <!-- Tag Cloud Begins -->
+            <div class="sidebar-elem">
+                <h4>Tag Cloud</h4>
+                <div class="tag-cloud">
+                    @foreach($tag_cloud->take(30) as $tag)
+                        <a href="\post/tag/{{ $tag->name }}" class="text-decoration-none">
+                            {{ $tag->name }}</a>
                     @endforeach
                 </div>
-
-                <!-- SideBar Popular Tags -->
-                <div class="sidebar-box ftco-animate">
-                    <div class="categories">
-                        <h3>Popular Tags</h3>
-                        @foreach($popular_tags as $popular_tag)
-                            <li>
-                                <a href="\post/tag/{{ $popular_tag->tag_name }}">
-                                    {{ $popular_tag->tag_name }}
-                                    <span class="mr-lg-5">Post Count : {{ $popular_tag->count }}</span>
-                                    <span class="ion-ios-arrow-forward"></span>
-                                </a></li>
-                        @endforeach
-                    </div>
-                </div>
-
-                <!-- TagCloud -->
-                <div class="sidebar-box ftco-animate">
-                    <h3>Tag Cloud</h3>
-                    <div class="tagcloud">
-                        @foreach($tag_cloud->take(30) as $tag)
-                            <a href="\post/tag/{{ $tag->name }}" class="tag-cloud-link">{{ $tag->name }}</a>
-                        @endforeach
-                    </div>
-                </div>
-
-                <!-- Posts by month -->
-                <div class="sidebar-box ftco-animate">
-                    <h3>Filter posts by month</h3>
-                    <form class="search-form" action="\search/date" method="post">
-                        @csrf
-                        <div class="form-group"><input type="month" name="key" class="form-control"></div>
-                        <div class="form-group">
-                            <button class="custom-button-secondary" type="submit">Search</button>
-                        </div>
-                    </form>
-                </div>
-
             </div>
-            <!-- End of Side Bar -->
+            <!-- Tag Cloud Ends -->
+
+            <!-- Search by month Begins -->
+            <div class="sidebar-box ftco-animate">
+                <h3>Filter posts by month</h3>
+                <form class="search-form" action="\search/date" method="post">
+                    @csrf
+                    <div class="form-group"><input type="month" name="key" class="form-control"></div>
+                    <div class="form-group">
+                        <button class="custom-button-secondary" type="submit">Search</button>
+                    </div>
+                </form>
+            </div>
         </div>
+        <!-- Search by month Ends -->
     </div>
-</section>
+    <!-- Side Bar Ends -->
+
+</div>
+<!-- Main Content Ends -->
 
 <!-- Logout Modal-->
 <form id="logout-form" action="{{ route('logout') }}" method="POST"
@@ -152,105 +172,20 @@
     @csrf
 </form>
 
-<!-- Footer Begins -->
-<footer class="ftco-footer ftco-bg-dark ftco-section">
-    <div class="container">
-        <div class="row mb-5">
-            <!-- About -->
-            <div class="col-md">
-                <div class="ftco-footer-widget mb-4">
-                    <h2 class="logo"><a href="\post/home">Sharan's<span>Blog</span>.</a></h2>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there
-                        live the blind texts.</p>
-                    <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-                        <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                        <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                        <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-                    </ul>
-                </div>
-            </div>
-            <!-- End of About -->
+<!-- Footer Start -->
+<footer class="m-5 p-5"></footer>
+<!-- Footer Ends -->
 
-            <!-- Latest Post -->
-            <div class="col-md">
-                <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2">latest News</h2>
-                    @foreach($recent_posts->take(2) as $latest_post)
-                        <div class="block-21 mb-4 d-flex">
-                            <a class="img mr-4 rounded"
-                               style="background-image: url('https://t2r6u7f9.rocketcdn.me/figz/wp-content/seloads/2016/03/google-code-seo-algorithm6-ss-1920-800x450.jpg');"
-                               href="\post/{{ $url = $users->find($latest_post->user_id)->name.'/'.str_replace('?','-', str_replace(' ', '-', $latest_post->post_title)).'-'.$latest_post->id }}"></a>
-                            <div class="text">
-                                <h3 class="heading"><a
-                                        href="\post/{{ $url }}">
-                                        {{ ($latest_post->post_title) }}</a>
-                                </h3>
-                                <div class="meta">
-                                    <div><a><span class="icon-calendar"></span>
-                                            {{ date("M j, Y ", strtotime($latest_post->created_at)) }}
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-            <!-- End of Latest Post -->
-
-            <!-- Information -->
-            <div class="col-md">
-                <div class="ftco-footer-widget mb-4 ml-md-5">
-                    <h2 class="ftco-heading-2">Information</h2>
-                    <ul class="list-unstyled">
-                        <li><a href="\post/home" class="py-1 d-block"><span class="ion-ios-arrow-forward mr-3"></span>Home</a>
-                        </li>
-                        <li><a href="\post/home" class="py-1 d-block"><span class="ion-ios-arrow-forward mr-3"></span>Articles</a>
-                        </li>
-                        <li><a href="#contact" class="py-1 d-block"><span class="ion-ios-arrow-forward mr-3"></span>Contact</a>
-                        </li>
-                        @auth
-                            <li><a href="\home" class="py-1 d-block"><span class="ion-ios-arrow-forward mr-3"></span>Dashboard</a>
-                            </li>
-                        @endauth
-                    </ul>
-                </div>
-            </div>
-            <!-- End of Information -->
-
-            <!-- Contacts -->
-            <div class="col-md" id="contact">
-                <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2">Have a Questions?</h2>
-                    <div class="block-23 mb-3">
-                        <ul>
-                            <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span>
-                            </li>
-                            <li><a href="#"><span class="icon icon-phone"></span><span
-                                        class="text">+2 392 3929 210</span></a></li>
-                            <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
-
-<script src="\blog/js/jquery.min.js"></script>
-<script src="\blog/js/bootstrap.min.js"></script>
-<script src="\blog/js/jquery.waypoints.min.js"></script>
-<script src="\blog/js/jquery.animateNumber.min.js"></script>
-<script src="\blog/js/main.js"></script>
-
+<!-- Script Begins -->
 <!-- CDN for Sweet Alert -->
-<script src="\blog/custom/sweetalert/sweetalert.min.js"></script>
+<script src="\blog/sweetalert/sweetalert.min.js"></script>
+
+<!-- My own Custom Script -->
+<script src="\blog/custom/script.js"></script>
 
 @yield('script')
 
-<!-- My own Custom Script -->
-<script src="\blog/custom/custom-script.js"></script>
+<!-- Script Ends -->
 
 </body>
 </html>
