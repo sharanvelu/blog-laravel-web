@@ -66,9 +66,9 @@
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
-    <!-- Jquery and css for tags -->
-    <script src="\tags_jquery/jquery.tagsinput.js"></script>
-    <link rel="stylesheet" type="text/css" href="\tags_jquery/jquery.tagsinput.css"/>
+    <!-- Jquery and css for tags input -->
+    <script src="\blog/tags/jquery.tagsinput.js"></script>
+    <link href="\blog/tags/jquery.tagsinput.css" rel="stylesheet" type="text/css" />
 
     <script>
         //Summer note WYSIWYG Editor Initiator

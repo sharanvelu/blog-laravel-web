@@ -2,13 +2,8 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Spatie\Searchable\Search;
-
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Pagination\Paginator;
-use Symfony\Contracts\EventDispatcher\Event;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,8 +23,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/index', 'PostController@index');
 
 //Landing page
-Route::get('/', function() {
+Route::get('/', function () {
     return redirect('post/home');
+});
+
+Route::get('stats', function () {
+    return view('charts.user_post');
 });
 
 Route::group(['prefix' => 'search'], function () {
@@ -48,7 +47,7 @@ Route::group(['prefix' => 'search'], function () {
 });
 
 //Blog Home and Single page
-Route::group(['prefix'=>'post'], function() {
+Route::group(['prefix' => 'post'], function () {
     Route::get('new', 'PostController@blogPostCreate')->name('create');
     Route::get('home', 'PostController@blogHome');
     Route::get('tag/{tag_name}', 'PostController@blogHomeTag');
@@ -97,4 +96,8 @@ Route::post('user/new/{action}', function ($action) {
         ->updateOrInsert(
             ['id' => 1],
             ['allow_register' => $bool]);
+});
+
+Route::get('test', function () {
+    return view('layouts.blog');
 });

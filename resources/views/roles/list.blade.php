@@ -5,12 +5,12 @@
 @section('content')
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center mb-4 justify-content-between">
-        <h1>List Roles</h1>
-        <a href="\role/create" class="custom-button-success">Create</a>
+        <h2>List Roles</h2>
+        <a href="\role/create" class="custom-button-success text-decoration-none">Create</a>
     </div>
 
     <!-- Role List -->
-    <div class="card card-body">
+    <div class="p-5 border rounded shadow">
         <form>
             @csrf
             <table id="roles_table" class="table table-hover table-condensed" style="width:100%">
@@ -26,7 +26,6 @@
         </form>
     </div>
 
-
     <!-- Divider -->
     <hr class="mb-5 mt-lg-5">
     <!-- Related Links -->
@@ -34,15 +33,15 @@
         <h3>Related Links</h3>
     </div>
 
-    <a class="m-3" href="{{ route('create') }}">
+    <a class="m-3 text-decoration-none" href="{{ route('create') }}">
         <div class="dashboard-element dashboard-element-success">Create Post</div>
     </a>
 
-    <a class="m-3" href="\post/home">
+    <a class="m-3 text-decoration-none" href="\post/home">
         <div class="dashboard-element dashboard-element-primary">Show All Post</div>
     </a>
 
-    <a class="m-3" href="\role/assign">
+    <a class="m-3 text-decoration-none" href="\role/assign">
         <div class="dashboard-element dashboard-element-secondary">Assign Roles</div>
     </a>
 

@@ -3,127 +3,124 @@
 @section('doc_title', $post->post_title . ' - Sharan\'s Blog')
 
 @section('content')
-    <div class="justify-content-between row">
-        <h2 class="mb-3 ml-3">{{ $post->post_title }}</h2>
-        @auth
-            @if( Auth::user()->hasAnyRole(['SuperAdmin', 'Admin', 'Editor']) or $post->user_id == Auth::id() )
-                <form class="mr-3 pr-3">
+    @auth
+        @if( Auth::user()->hasAnyRole(['SuperAdmin', 'Admin', 'Editor']) or $post->user_id == Auth::id() )
+            <!-- Post Title, Edit and Delete Button -->
+            <div class="justify-content-between row">
+                <h2 class="col-11">{{ $post->post_title }}</h2>
+                <form class="col-1">
                     @csrf
-                    <a class="btn btn-outline-primary p-1" href="\post/update/{{ $post->id }}">
+                    <a class="btn btn-outline-primary p-1 mt-1" href="\post/update/{{ $post->id }}">
                         <i class="fas fa-fw fa-edit"></i>
                     </a>
-                    <button type="button" class="btn btn-outline-danger p-1"
+                    <button type="button" class="btn btn-outline-danger p-1 mt-1"
                             onclick="deletePost({{ $post }}, '{{ $post->user->name }}', this.form)">
                         <i class="fas fa-fw fa-trash-alt"></i>
                     </button>
                 </form>
-            @endif
-        @endauth
-    </div>
-    <p class="text-gray-100 font-weight-light"><span class="icon-calendar"></span>
-        {{ date("F j, Y ", strtotime($post->created_at)) }}</p>
+            </div>
+        @else
+            <!-- Post Title -->
+            <h2>{{ $post->post_title }}</h2>
+        @endif
+    @else
+        <!-- Post Title -->
+        <h2>{{ $post->post_title }}</h2>
+    @endauth
+
+    <!-- User and Created at -->
+    <p class="text-secondary font-weight-light">
+        <i class="far fa-user mr-2"></i>{{ $user_name = $post->user->name }}
+        <span class="mx-3">|</span>
+        <i class="far fa-calendar-alt mr-2"></i>{{ date("F j, Y ", strtotime($post->created_at)) }}
+    </p>
+
+    <!-- Post Image -->
     <p class="mb-5">
-        <img src="https://t2r6u7f9.rocketcdn.me/figz/wp-content/seloads/2016/03/google-code-seo-algorithm6-ss-1920-800x450.jpg" alt="{{ $post->post_title }}-image" class="img-fluid"></p>
-    <div>
-        <?php echo $post->post_description ?>
-    </div>
+        <img src="{!! asset('storage/' . $post->image) !!}" alt="{{ $post->post_title }}-image"
+             class="img-fluid rounded">
+    </p>
+
+    <!-- Post Description -->
+    <div>{!! $post->post_description !!}</div>
+
     <!-- Tags -->
-    <?php $tags = $post->tags ?>
-    @if($tags->count())
-        <div class="tag-widget post-tag-container mb-5 mt-5">
-            <div class="tagcloud">
-                Tags :&nbsp;
+    @if( ($tags = $post->tags)->count() )
+        <div class="mb-5 mt-5">
+            <div class="tag-cloud">
+                <i class="fas fa-tags mr-2 text-secondary"></i>
                 @foreach($tags as $tag)
-                    <a href="\post/tag/{{ $tag->name }}" class="tag-cloud-link">{{ $tag->name }}</a>
+                    <a href="\post/tag/{{ $tag->name }}" class="text-decoration-none">{{ $tag->name }}</a>
                 @endforeach
             </div>
         </div>
     @endif
 
     <!-- Author's Profile -->
-    <div class="about-author d-flex p-4 bg-light">
-        <div class="bio mr-5">
-            <img src="\blog/images/person_default.jpg" alt="Image placeholder" class="img-fluid mb-4">
+    <div class="d-flex p-4 bg-light shadow">
+        <div class="mr-5">
+            <a href="\post/{{ $user_name }}">
+                <img src="\blog/images/person_default.jpg" alt="{{ $user_name }} - Profile Image"
+                     class="img-fluid mb-4"/>
+            </a>
         </div>
-        <div class="desc">
-            <h3>{{ $post->user->name }}</h3>
+        <div>
+            <h3><a href="\post/{{ $user_name }}" class="text-decoration-none text-dark">{{ $user_name }}</a>
+            </h3>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem
                 necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa
                 sapiente consectetur similique, inventore eos fugit cupiditate numquam!</p>
         </div>
     </div>
 
-    <hr>
-
-    <!-- Comments -->
+    <!-- Comment Section Begins -->
     <div class="pt-5">
-        <?php $comments = $post->comments ?>
-        <h3 class="mb-5">{{ $comments->count() }}
-            @if($comments->count() == 1)
-                Comment
-            @else
-                Comments
-            @endif
+        <h3 class="mb-5">{{ ($comments = $post->comments)->count() }}
+            @if( $comments->count() == 1 ) Comment @else Comments @endif
         </h3>
-        <ul class="comment-list" id="comment_list">
+        <!-- Comments List Begins -->
+        <ul class="list-unstyled" id="comment_list">
             @forelse($comments as $comment)
-                <li class="comment">
-                    <div class="vcard bio">
-                        <img src="\blog/images/person_default.jpg" alt="Image placeholder">
+                <li class="mb-3 p-3 border rounded shadow-sm">
+                    <div class="row d-flex m-0">
+                        <h4 class="align-self-center">{{ $comment->user_name }}</h4>
+                        @auth
+                            @if( Auth::user()->hasAnyRole(['SuperAdmin', 'Admin', 'Editor']) or $post->user_id == Auth::id() )
+                                <form class="ml-auto">
+                                    @csrf
+                                    <a class="btn btn-outline-primary p-1" href="#"
+                                       data-toggle="modal" data-target="#edit_comment_modal"
+                                       onclick="editComment({{ $comment }})">
+                                        <i class="fas fa-fw fa-edit"></i>
+                                    </a>
+                                    <button type="button" class="btn btn-outline-danger p-1"
+                                            onclick="deleteComment({{ $comment }}, this.form)">
+                                        <i class="fas fa-fw fa-trash-alt"></i>
+                                    </button>
+                                </form>
+                            @endif
+                        @endauth
                     </div>
-                    <div class="comment-body">
-                        <div class="row justify-content-between">
-                            <div class="row ml-3">
-                                <h3>{{ $comment->user_name }}</h3>&nbsp;&nbsp;
-                                @if( in_array( $comment->user_email, array_column( App\User::get('email')->all(), 'email')))
-                                    @if(App\User::where('email', $comment->user_email)->first()->roles->first())
-                                        <span>
-                                            <sup class="text-capitalize text-primary">
-                                                {{--{{ App\User::where('email', $comment->user_email)->first()->roles->first()->name }}--}}
-                                            </sup>
-                                        </span>
-                                    @endif
-                                @endif
-                            </div>
-                            @auth
-                                @if( Auth::user()->hasAnyRole(['SuperAdmin', 'Admin', 'Editor']) or $post->user_id == Auth::id() )
-                                    <form class="mr-3 pr-3">
-                                        @csrf
-                                        <a class="btn btn-outline-primary p-1" href="#"
-                                           data-toggle="modal" data-target="#edit_comment_modal"
-                                           onclick="editComment({{ $comment }})">
-                                            <i class="fas fa-fw fa-edit"></i>
-                                        </a>
-                                        <button type="button" class="btn btn-outline-danger p-1"
-                                                onclick="deleteComment({{ $comment }}, this.form)">
-                                            <i class="fas fa-fw fa-trash-alt"></i>
-                                        </button>
-                                    </form>
-                                @endif
-                            @endauth
-                        </div>
-                        <div class="meta mb-3">
-                            {{ date("F j, Y ", strtotime($comment->created_at)) }} AT
-                            {{ date("h:i A", strtotime($comment->created_at)) }}
-                        </div>
-                        <p>{{ $comment->comment }}</p>
-                        {{--<p><a href="#" class="reply">Reply</a></p>--}}
+                    <div class="text-secondary my-3">
+                        <i class="far fa-calendar-alt mr-2"></i>
+                        {{ date("F j, Y ", strtotime($comment->created_at)) }}
+                        <span class="mx-3">|</span>
+                        <i class="far fa-clock mr-2"></i>{{ date("h:i A", strtotime($comment->created_at)) }}
                     </div>
+                    <p>{{ $comment->comment }}</p>
                 </li>
             @empty
-                <li class="comment">
-                    <div class="vcard bio">
-                        <img src="\blog/images/person_default.jpg" alt="Image placeholder">
-                    </div>
-                    <div class="comment-body">
-                        <h3>No Comment</h3>
-                        <p>Be the first to comment</p>
+                <li class="mb-3 p-3 border rounded">
+                    <div class="text-center">
+                        <h3>No Comments.</h3>
+                        <p class="text-secondary">Be the first to comment.</p>
                     </div>
                 </li>
             @endforelse
         </ul>
-        <!-- END comment-list -->
+        <!-- Comment List Ends -->
 
+        <!-- Comment Form Begins -->
         <div class="comment-form-wrap pt-5">
             <h3 class="mb-5">Leave a comment</h3>
             <form action="\comment/add" class="p-5 bg-light">
@@ -133,7 +130,7 @@
                     <label for="email">Email *</label>
                     <span id="email_error" class="text-danger"></span>
                     <input type="email" class="form-control" id="comment_email" name="email" required
-                           onkeyup="commentGetName(this.form)" >
+                           onkeyup="commentGetName(this.form)">
                 </div>
                 <div class="form-group">
                     <label for="name">Name *</label>
@@ -151,7 +148,7 @@
                     <label for="message">Message *</label>
                     <span id="comment_error" class="text-danger"></span>
                     <textarea name="comment" id="comment_comment" cols="30" rows="10"
-                              class="form-control"
+                              class="form-control" style="min-height: 100px; max-height: 350px"
                               required></textarea>
                 </div>
                 <div class="form-group">
@@ -160,10 +157,13 @@
                 </div>
             </form>
         </div>
+        <!-- Comment form Ends -->
     </div>
+    <!-- Comment Section Ends -->
 
     <!-- Edit Comment Modal-->
-    <div class="modal fade" id="edit_comment_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="edit_comment_modal" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
@@ -179,17 +179,23 @@
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <label class="col-form-label align-self-center text-md-right">User Name<sup>*</sup> :
+                            <label class="col-form-label align-self-center text-md-right">User
+                                Name<sup>*</sup>
+                                :
                             </label>
                             <span id="comment_edit_name_error" class="text-danger"></span>
-                            <input type="text" id="comment_edit_name" class="form-control" name="name" required
+                            <input type="text" id="comment_edit_name" class="form-control" name="name"
+                                   required
                                    value="">
                         </div>
                         <br>
                         <div class="form-group">
-                            <label class="col-form-label align-self-center text-md-right">Comment<sup>*</sup> : </label>
+                            <label
+                                class="col-form-label align-self-center text-md-right">Comment<sup>*</sup> :
+                            </label>
                             <span id="comment_edit_comment_error" class="text-danger"></span>
-                            <input type="text" id="comment_edit_comment" class="form-control" name="comment" required
+                            <input type="text" id="comment_edit_comment" class="form-control" name="comment"
+                                   required
                                    value="">
                         </div>
                     </div>
