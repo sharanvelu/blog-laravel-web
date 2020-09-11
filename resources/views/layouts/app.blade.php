@@ -13,26 +13,26 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Custom styles for this template-->
-    <link href="\css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="\app_layout/sb-admin-2.min.css" rel="stylesheet">
+    <!-- Custom scripts for all pages-->
+    <script src="\app_layout/sb-admin-2.min.js"></script>
 
     <!-- Custom fonts for this template-->
-    <link href="\vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="\app_layout/all.min.css" rel="stylesheet" type="text/css">
+
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Bootstrap core JavaScript-->
-    <script src="\vendor/jquery/jquery.min.js"></script>
-    <script src="\vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="\app_layout/jquery.min.js"></script>
+    <script src="\app_layout/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="\vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="\js/sb-admin-2.min.js"></script>
+    <script src="\app_layout/jquery.easing.min.js"></script>
 
     <!-- My own Custom Styles -->
-    <link rel="stylesheet" href="\blog/custom/custom-styles.css">
+    <link rel="stylesheet" href="\blog/custom/style.css">
 
 </head>
 
@@ -207,10 +207,10 @@
 @yield('script')
 
 <!-- CDN for Sweet Alert -->
-<script src="\blog/custom/sweetalert/sweetalert.min.js"></script>
+<script src="\blog/sweetalert/sweetalert.min.js"></script>
 
 <!-- My own Custom Script -->
-<script src="\blog/custom/custom-script.js"></script>
+<script src="\blog/custom/script.js"></script>
 
 </body>
 

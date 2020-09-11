@@ -16,6 +16,7 @@ use Yajra\DataTables\DataTables;
 class PostController extends Controller
 {
     /**
+     * @param $action
      * @return bool
      */
     private function checkPermission($action)
@@ -90,8 +91,11 @@ class PostController extends Controller
      */
     public function blogHome()
     {
+        $posts = Post::orderBy('created_at', 'DESC')
+            ->with('user:id,name')
+            ->paginate(5);
         return view('blog.home', [
-            'posts' => Post::orderBy('created_at', 'DESC')->paginate(5),
+            'posts' => $posts,
         ]);
     }
 
@@ -101,10 +105,14 @@ class PostController extends Controller
      */
     public function blogHomeTag($tag_name)
     {
-        $posts = Tag::where('name', $tag_name)->firstOrFail()->posts;
+        $posts = Tag::where('name', $tag_name)
+            ->with('posts', 'posts.user')
+            ->get()->first()->posts;
         $posts = new Paginator($posts, 5);
         $posts->withPath('\post/tag/' . $tag_name);
+
         return view('blog.home', [
+            'title' => 'Posts with Tag : ' . $tag_name,
             'posts' => $posts
         ]);
     }
@@ -116,9 +124,13 @@ class PostController extends Controller
     public function blogHomeUser($username)
     {
         $user = User::where('name', $username)->firstOrFail();
+        $posts = Post::where('user_id', $user->id)
+            ->orderBy('created_at', 'DESC')
+            ->with('user:id,name')
+            ->paginate(5);
         return view('blog.home', [
             'title' => 'Posts By User : ' . $username,
-            'posts' => Post::where('user_id', $user->id)->orderBy('created_at', 'DESC')->paginate(5),
+            'posts' => $posts,
         ]);
     }
 
@@ -130,7 +142,10 @@ class PostController extends Controller
         $date = strtotime($_POST['key']);
         $month = Carbon::create(date('Y', $date), date('m', $date), 01);
 
-        $posts = Post::whereMonth('created_at', '=', $month)->orderBy('created_at', 'DESC')->paginate(5);
+        $posts = Post::whereMonth('created_at', '=', $month)
+            ->orderBy('created_at', 'DESC')
+            ->with('user:id,name')
+            ->paginate(5);
         return view('blog.home', [
             'title' => 'Posts By month : ' . date('F', $date),
             'posts'=>$posts
@@ -145,9 +160,10 @@ class PostController extends Controller
     public function blogPost($username, $post_url)
     {
         $url_array = explode('-', $post_url);
-        $user = User::where('name', $username)->firstOrFail();
-        $post = Post::findOrFail(end($url_array));
-        abort_if($user->id != $post->user_id, 404);
+        $post = Post::where('id', end($url_array))
+            ->with('user:id,name', 'tags:name', 'comments')
+            ->firstOrFail();
+        abort_if($username != $post->user->name, 404);
         return view('blog.post', ['post' => $post]);
     }
 

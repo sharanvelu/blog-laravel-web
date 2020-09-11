@@ -42,7 +42,7 @@
     </p>
 
     <!-- Post Description -->
-    <div>{!! $post->post_description !!}</div>
+    <div id="desc">{!! $post->post_description !!}</div>
 
     <!-- Tags -->
     @if( ($tags = $post->tags)->count() )
@@ -211,4 +211,16 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+    <script>
+        $(window).scroll(function() {
+            // calculate how much percentage the user has scrolled down the page
+            let scroll_percent = $(window).scrollTop() / ($('#desc').height() + $('#desc').offset().top - 100) * 100;
+
+            // bar on the top
+            $('.scroll-status-bar').css('width', scroll_percent +"%"  );
+        });
+    </script>
 @endsection

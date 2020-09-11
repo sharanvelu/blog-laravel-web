@@ -47,7 +47,7 @@
                 </div>
             </div>
 
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+            <button class="mx-auto mt-3 col-6 btn btn-lg btn-outline-primary btn-block rounded-pill" type="submit">Login</button>
 
             <div class="text-center mt-5">
                 Not a member? <a href="{{ route('register') }}" class="text-decoration-none">Sign up Now</a>

@@ -26,7 +26,8 @@
                     @enderror
                 </div>
 
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Confirm Password</button>
+                <button class="mx-auto mt-3 col-8 btn btn-lg btn-outline-primary btn-block rounded-pill" type="submit">
+                    Confirm Password</button>
 
                 @if (Route::has('password.request'))
                     <a class="btn btn-link" href="{{ route('password.request') }}">

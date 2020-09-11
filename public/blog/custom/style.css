@@ -210,10 +210,19 @@
 }
 
 nav {
-    background: rgba(0, 0, 0, 0.7); !important;
+    background: rgba(255, 255, 255, 0.6); !important;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    transition: .3s;
+}
+
+.scroll-status-bar {
+    height: 5px;
+    background-color: #009ACF;
+    width: 0;
+    z-index: 1031;
+    position: fixed;
+    top: 59px;
 }
 
 .sidebar-elem {

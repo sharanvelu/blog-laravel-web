@@ -356,3 +356,20 @@ function IsEmail(email) {
     var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     return regex.test(email);
 }
+
+let scroll_state = 0;
+
+$(window).scroll(function () {
+    let scroll_top = $(window).scrollTop();
+    let doc_height = $(document).height();
+    let win_height = $(window).height();
+
+    // calculate how much percentage the user has scrolled down the page
+    let scroll_percent = scroll_top / (doc_height - win_height) * 100;
+
+    if (scroll_percent > 0.5) {
+        $('nav').addClass('shadow-sm');
+    } else {
+        $('nav').removeClass('shadow-sm');
+    }
+});

@@ -42,7 +42,7 @@
 </head>
 <body>
 <!-- Nav Bar Begins -->
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
     <div class="container py-1">
         <a class="navbar-brand" href="\post/home">
             Sharan
@@ -65,6 +65,7 @@
         </div>
     </div>
 </nav>
+<div class="scroll-status-bar"></div>
 <!-- Nav Bar Ends -->
 
 <div class="m-3 pt-4 pb-5"></div> <!-- Space -->
@@ -172,7 +173,7 @@
     @csrf
 </form>
 
-<!-- Footer Start -->
+<!-- ---- Footer Start ---- -->
 <footer class="bg-secondary">
     <div class="text-center text-light py-3">
         <i class="fas fa-wind fa-2x fa-flip-horizontal"></i>
@@ -187,9 +188,9 @@
         </ul>
     </div>
 </footer>
-<!-- Footer Ends -->
+<!-- ---- Footer Ends ---- -->
 
-<!-- Script Begins -->
+<!-- ---- Script Begins ---- -->
 <!-- CDN for Sweet Alert -->
 <script src="\blog/sweetalert/sweetalert.min.js"></script>
 
@@ -198,7 +199,7 @@
 
 @yield('script')
 
-<!-- Script Ends -->
+<!-- ---- Script Ends ---- -->
 
 </body>
 </html>

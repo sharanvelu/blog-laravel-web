@@ -41,7 +41,8 @@
                 <label for="password-confirm">Confirm Password</label>
             </div>
 
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Reset Password</button>
+            <button class="mx-auto mt-3 col-6 btn btn-lg btn-outline-primary btn-block rounded-pill" type="submit">
+                Reset Password</button>
 
         </form>
     </div>

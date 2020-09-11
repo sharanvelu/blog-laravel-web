@@ -22,7 +22,8 @@
 
             <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
                 @csrf
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Click to request another</button>
+                <button class="mx-auto mt-3 col-8 btn btn-lg btn-outline-primary btn-block rounded-pill" type="submit">
+                    Click to request another</button>
             </form>
         </div>
     </div>

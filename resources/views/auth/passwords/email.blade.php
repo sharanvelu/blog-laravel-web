@@ -30,7 +30,8 @@
                 @enderror
             </div>
 
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Send Password Reset Link</button>
+            <button class="mx-auto mt-3 col-8 btn btn-lg btn-outline-primary btn-block rounded-pill" type="submit">
+                Send Password Reset Link</button>
 
             <div class="text-center mt-5">
                 Not a member? <a href="{{ route('register') }}" class="text-decoration-none">Sign up Now</a>

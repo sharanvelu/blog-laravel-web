@@ -35,8 +35,8 @@
                 <li><a href="{{ $paginator->nextPageUrl() }}"><div>&gt;</div></a></li>
                 <li><a href="{{ $paginator->path() . '?page=' . $paginator->lastPage() }}"><div>&raquo;</div></a></li>
             @else
-                <li><div>&gt;</div></li>
-                <li><div>&raquo;</div></li>
+                <li><div class="disabled">&gt;</div></li>
+                <li><div class="disabled">&raquo;</div></li>
             @endif
         </ul>
     </div>

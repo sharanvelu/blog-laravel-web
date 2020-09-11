@@ -4,7 +4,7 @@
 
 @section('content')
     @if( $title ?? '' )
-        <h1 class="mb-4">{{ $title }}</h1>
+        <h2 class="mb-4">{{ $title }}</h2>
 
         @if( empty($posts->count()) )
             No posts have been found
@@ -14,7 +14,7 @@
     <!-- Blog Post -->
     @foreach($posts as $post)
         <a class="text-decoration-none"
-           href="\post/{{ $post_user_name = $users->find($post->user_id)->name }}/{{ str_replace('?','-', str_replace(' ', '-', $post->post_title)) }}-{{ $post->id }}">
+           href="\post/{{ $post->user->name }}/{{ str_replace('?','-', str_replace(' ', '-', $post->post_title)) }}-{{ $post->id }}">
             <div class="post">
                 <div style="background-image: url('{!! asset('storage/' . $post->image) !!}');"
                      class="col-12 post-img"></div>
@@ -34,7 +34,7 @@
                         @if(strlen($str) > 150) . . .@endif
                     </p>
                     <div class="text-secondary row m-0 justify-content-between">
-                        <div><i class="far fa-user mr-2"></i>{{ $post_user_name }}</div>
+                        <div><i class="far fa-user mr-2"></i>{{ $post->user->name }}</div>
                         <div><i class="fas fa-arrow-right mr-2 post-read-more"></i>Read more</div>
                     </div>
                 </div>

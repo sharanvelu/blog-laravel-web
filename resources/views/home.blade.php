@@ -53,13 +53,13 @@
         @endhasrole
 
         @hasrole('Admin')
-        <a class="m-3 text-decoration-none" href="\role/list">
-            <div class="dashboard-element dashboard-element-info">List Roles</div>
-        </a>
+            <a class="col-12 col-md-6 m-3 m-md-0 mt-md-3 text-decoration-none" href="\role/list">
+                <div class="dashboard-element dashboard-element-info">List Roles</div>
+            </a>
 
-        <a class="m-3 text-decoration-none" href="\post/assign">
-            <div class="dashboard-element dashboard-element-secondary">Assign Roles</div>
-        </a>
+            <a class="col-12 col-md-6 m-3 m-md-0 mt-md-3 text-decoration-none" href="\role/assign">
+                <div class="dashboard-element dashboard-element-secondary">Assign Roles</div>
+            </a>
         @endhasrole
     </div>
 @endsection

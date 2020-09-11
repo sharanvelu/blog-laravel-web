@@ -12,7 +12,7 @@ class Tag extends Model implements Searchable
 
     public function posts()
     {
-        return $this->belongsToMany(Post::class)->withTimestamps();
+        return $this->belongsToMany('App\Post')->withTimestamps();
     }
 
     /**
