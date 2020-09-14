@@ -75,11 +75,11 @@
 
     <!-- Comment Section Begins -->
     <div class="pt-5">
-        <h3 class="mb-5">{{ ($comments = $post->comments)->count() }}
-            @if( $comments->count() == 1 ) Comment @else Comments @endif
-        </h3>
         <!-- Comments List Begins -->
         <ul class="list-unstyled" id="comment_list">
+            <h3 class="mb-5">{{ ($comments = $post->comments)->count() }}
+                @if( $comments->count() == 1 ) Comment @else Comments @endif
+            </h3>
             @forelse($comments as $comment)
                 <li class="mb-3 p-3 border rounded shadow-sm">
                     <div class="row d-flex m-0">
