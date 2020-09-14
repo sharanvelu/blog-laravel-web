@@ -30,23 +30,20 @@
 
     <!-- User and Created at -->
     <p class="text-secondary font-weight-light">
-        <i class="far fa-user mr-2"></i>{{ $user_name = $post->user->name }}
+        <a href="#" class="text-decoration-none text-secondary">
+            <i class="far fa-user mr-2"></i>{{ $user_name = $post->user->name }}</a>
         <span class="mx-3">|</span>
         <i class="far fa-calendar-alt mr-2"></i>{{ date("F j, Y ", strtotime($post->created_at)) }}
     </p>
 
     <!-- Post Image -->
-    <p class="mb-5">
-        <img src="{!! asset('storage/' . $post->image) !!}" alt="{{ $post->post_title }}-image"
+    <p><img src="{!! asset('storage/' . $post->image) !!}" alt="{{ $post->post_title }}-image"
              class="img-fluid rounded">
     </p>
 
-    <!-- Post Description -->
-    <div id="desc">{!! $post->post_description !!}</div>
-
     <!-- Tags -->
     @if( ($tags = $post->tags)->count() )
-        <div class="mb-5 mt-5">
+        <div class="mb-3">
             <div class="tag-cloud">
                 <i class="fas fa-tags mr-2 text-secondary"></i>
                 @foreach($tags as $tag)
@@ -56,11 +53,14 @@
         </div>
     @endif
 
+    <!-- Post Description -->
+    <div id="desc">{!! $post->post_description !!}</div>
+
     <!-- Author's Profile -->
-    <div class="d-flex p-4 bg-light shadow">
+    <div class="d-flex p-4 mt-5 bg-light shadow">
         <div class="mr-5">
             <a href="\post/{{ $user_name }}">
-                <img src="\blog/images/person_default.jpg" alt="{{ $user_name }} - Profile Image"
+                <img src="\res/images/person_default.jpg" alt="{{ $user_name }} - Profile Image"
                      class="img-fluid mb-4"/>
             </a>
         </div>
