@@ -57,6 +57,9 @@ class PostController extends Controller
             }
         }
 
+        // Event trigger for sending mail
+        event(new \App\Events\PostCreated($post));
+
         //Browser Redirection to post Show page
         return redirect('post/' . $post->user->name . '/' . str_replace(' ', '-', $post->post_title) . '-' . $post->id);
     }
@@ -75,6 +78,9 @@ class PostController extends Controller
         $this->checkPermission('delete-post', $post);
         $post->delete();
         Storage::delete($post->image);
+
+        // Event trigger for sending mail
+        event(new \App\Events\PostDeleted($post));
     }
 
     /**
@@ -196,6 +202,9 @@ class PostController extends Controller
                 ? Storage::putFile('images', new File($request->file('image')->getPathname()))
                 : ($_POST['img'] ? $_POST['img'] : ""),
         ]);
+
+        // Event trigger for sending mail
+        event(new \App\Events\PostUpdated($post));
 
         //Browser Redirection to post Show page
         return redirect('post/' . $post->user->name . '/' .
