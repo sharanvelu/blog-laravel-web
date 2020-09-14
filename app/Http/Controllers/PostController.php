@@ -16,25 +16,31 @@ use Yajra\DataTables\DataTables;
 class PostController extends Controller
 {
     /**
+     * @param $post
      * @param $action
      * @return bool
      */
-    private function checkPermission($action)
+    private function checkPermission($action, $post = null)
     {
         abort_unless(Auth::check(), 404);
-        abort_unless(Auth::user()->hasPermissionTo($action), 404);
+        $auth_user = Auth::user();
+        if ($auth_user->hasAnyRole(['SuperAdmin', 'Admin']) or ($post->user_id == $auth_user->id)) {
+            return true;
+        }
+        abort_unless($auth_user->hasPermissionTo($action), 404);
         return true;
     }
 
     /**
      * Post creation
-     * POST Method
+     * POST Request
      *
      * @param StorePost $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function create(StorePost $request)
     {
+        $this->checkPermission('create-post');
         $post = Post::create([
             'post_title' => $request->PostTitle,
             'post_description' => $request->PostDescription,
@@ -51,9 +57,6 @@ class PostController extends Controller
             }
         }
 
-        // Event trigger for sending mail
-        event(new \App\Events\PostCreated($post));
-
         //Browser Redirection to post Show page
         return redirect('post/' . $post->user->name . '/' . str_replace(' ', '-', $post->post_title) . '-' . $post->id);
     }
@@ -61,20 +64,17 @@ class PostController extends Controller
     /**
      *
      * Post deletion through AJAX request
-     * POST Method
+     * POST Request
      *
      * @param $id
      * @return void
      */
     public function delete($id)
     {
-        $this->checkPermission('delete-post');
         $post = Post::find($id);
+        $this->checkPermission('delete-post', $post);
         $post->delete();
         Storage::delete($post->image);
-
-        // Event trigger for sending mail
-        event(new \App\Events\PostDeleted($post));
     }
 
     /**
@@ -148,7 +148,7 @@ class PostController extends Controller
             ->paginate(5);
         return view('blog.home', [
             'title' => 'Posts By month : ' . date('F', $date),
-            'posts'=>$posts
+            'posts' => $posts
         ]);
     }
 
@@ -169,16 +169,17 @@ class PostController extends Controller
 
     public function edit($id)
     {
-        abort_unless(Auth::user()->hasPermissionTo('edit-post') or Auth::id() == $id, 404);
+        $post = Post::findOrFail($id);
+        $this->checkPermission('edit-post', $post);
         return view('post.update', [
-            'post' => Post::findOrFail($id)
+            'post' => $post
         ]);
     }
 
     /**
      *
      * Post Update through AJAX request
-     * POST Method
+     * POST Request
      *
      * @param $id
      * @param StorePost $request
@@ -186,21 +187,19 @@ class PostController extends Controller
      */
     public function update($id, StorePost $request)
     {
-        $post = Post::find($id)->update([
+        $post = Post::findOrFail($id);
+        $this->checkPermission('edit-post', $post);
+        $post->update([
             'post_title' => $request->PostTitle,
             'post_description' => $request->PostDescription,
             'image' => $request->hasFile('image')
                 ? Storage::putFile('images', new File($request->file('image')->getPathname()))
-                : ( $_POST['img'] ? $_POST['img'] : "" ) ,
+                : ($_POST['img'] ? $_POST['img'] : ""),
         ]);
-        if ($post) { $post = Post::find($id); }
-
-        // Event trigger for sending mail
-        event(new \App\Events\PostUpdated($post));
 
         //Browser Redirection to post Show page
         return redirect('post/' . $post->user->name . '/' .
-            str_replace('?','-', str_replace(' ', '-', $post->post_title)). '-' . $post->id);
+            str_replace('?', '-', str_replace(' ', '-', $post->post_title)) . '-' . $post->id);
     }
 
     /**

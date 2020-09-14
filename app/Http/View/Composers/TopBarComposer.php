@@ -26,6 +26,14 @@ class TopBarComposer
             $logout->{'name'} = 'Logout';
             $logout->{'href'} = '#';
 
+            if (Auth::User()->hasPermissionTo('create-post')){
+                $create_post = new stdClass();
+                $create_post->{'name'} = 'New';
+                $create_post->{'href'} = '\post/new';
+                array_push($this->login_data, $create_post);
+                unset($create_post);
+            }
+
             array_push($this->login_data, $dashboard);
             array_push($this->login_data, $logout);
 

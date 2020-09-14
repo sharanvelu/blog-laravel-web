@@ -8,13 +8,17 @@
         <h2>Dashboard</h2>
     </div>
 
+    <h5 class="p-3 mx-auto col-6 text-center text-lowercase bg-light rounded-pill shadow">
+        <span class="text-capitalize">Welcome {{ $auth_user_name = Auth::user()->name }}</span>
+    </h5>
+
     <div class="row">
         @can('create-post')
-            <a class="col-12 col-md-6 m-3 m-md-0 mt-md-3 text-decoration-none" href="{{ route('create') }}">
+            <a class="col-12 col-md-6 m-3 m-md-0 mt-md-3 text-decoration-none" href="{{ route('create') }}" id="test">
                 <div class="dashboard-element dashboard-element-success">Create Post</div>
             </a>
 
-            <a class="col-12 col-md-6 m-3 m-md-0 mt-md-3 text-decoration-none" href="\post/{{ Auth::User()->name }}">
+            <a class="col-12 col-md-6 m-3 m-md-0 mt-md-3 text-decoration-none" href="\post/{{ $auth_user_name }}">
                 <div class="dashboard-element dashboard-element-secondary">Show My Post</div>
             </a>
         @endcan

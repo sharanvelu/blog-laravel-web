@@ -7,18 +7,17 @@
     <meta name="author" content="Sharan">
 
     <!-- Title Bar Icon -->
-    <link rel="shortcut icon" href="\blog/images/titlebar_logo.png"/>
-
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
-            integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="\res/images/titlebar_logo.png"/>
 
     <!-- Bootstrap CDN -->
     <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" rel="stylesheet">
     <!-- JS, Popper.js, and jQuery -->
-    <script crossorigin="anonymous"
-            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+            integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"  crossorigin="anonymous"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"></script>
+    <script integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"
             src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <!-- Font Awesome Icons -->
@@ -26,14 +25,14 @@
           integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
 
     <!-- Charting library -->
-    <script src="\blog/chart/echarts.min.js"></script>
+    <script src="\res/chart/echarts.min.js"></script>
     <!-- Chartisan -->
-    <script src="\blog/chart/chartisan_echarts.js"></script>
+    <script src="\res/chart/chartisan_echarts.js"></script>
     <!-- Chart Custom Script -->
-    <script src="\blog/chart/chart.js"></script>
+    <script src="\res/chart/chart.js"></script>
 
     <!-- My own Custom Styles -->
-    <link rel="stylesheet" href="\blog/custom/style.css">
+    <link rel="stylesheet" href="\res/custom/style.css">
 
     <!-- Google Adsense -->
     <script data-ad-client="ca-pub-3601562801028392" async
@@ -42,7 +41,7 @@
 </head>
 <body>
 <!-- Nav Bar Begins -->
-<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+<nav class="navbar navbar-expand-md navbar-light fixed-top">
     <div class="container py-1">
         <a class="navbar-brand" href="\post/home">
             Sharan
@@ -149,7 +148,7 @@
             <!-- Tag Cloud Ends -->
 
             <!-- Search by month Begins -->
-            <div class="sidebar-box ftco-animate">
+            <div class="sidebar-elem">
                 <h3>Filter posts by month</h3>
                 <form class="search-form" action="\search/date" method="post">
                     @csrf
@@ -174,7 +173,7 @@
 </form>
 
 <!-- ---- Footer Start ---- -->
-<footer class="bg-secondary">
+<footer class="bg-secondary mt-3">
     <div class="text-center text-light py-3">
         <i class="fas fa-wind fa-2x fa-flip-horizontal"></i>
         <span class="h3 mx-3">Sharan</span>
@@ -192,10 +191,10 @@
 
 <!-- ---- Script Begins ---- -->
 <!-- CDN for Sweet Alert -->
-<script src="\blog/sweetalert/sweetalert.min.js"></script>
+<script src="\res/sweetalert/sweetalert.min.js"></script>
 
 <!-- My own Custom Script -->
-<script src="\blog/custom/script.js"></script>
+<script src="\res/custom/script.js"></script>
 
 @yield('script')
 

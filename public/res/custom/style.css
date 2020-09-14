@@ -424,3 +424,8 @@ nav {
 .pagination > li > div.disabled {
     background: #e9e9e9;
 }
+
+#desc img {
+    height: auto; !important;
+    max-width: 100%; !important;
+}
