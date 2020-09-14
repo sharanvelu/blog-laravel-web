@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.blog')
 
 @section('doc_title', 'Create Post - Sharan\'s Blog')
 
 @section('content')
     <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Create Post</h1>
+    <div class="mb-4 overflow-auto">
+        <h2>Create Post</h2>
     </div>
 
     @if ($errors->any())
@@ -21,7 +21,7 @@
     @endif
 
     <!-- Post Create Form -->
-    <form method="POST" action="\post/create" class="content col-11 mx-auto my-3" enctype="multipart/form-data">
+    <form method="POST" action="\post/create" class="col-md-12 py-3 border rounded" enctype="multipart/form-data">
         @csrf
 
         <div class="form-group my-6">
@@ -56,13 +56,10 @@
 @endsection
 
 @section('script')
-
     <!-- CDN SummerNote Editor -->
-    <!-- include bootstrap libraries -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
-    <!-- include summernote css/js -->
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <!-- summernote css/js cdn -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 
     <!-- Jquery and css for tags input -->
     <script src="\blog/tags/jquery.tagsinput.js"></script>
@@ -81,5 +78,4 @@
         //tag input
         $('#tags').tagsInput();
     </script>
-
 @endsection

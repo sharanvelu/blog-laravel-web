@@ -282,6 +282,8 @@ if (split[1] !== 'role') {
     if (split[1] === 'post') {
         if (split[2] === 'home') {
             $('#nav_item_home').addClass('active');
+        } else if (split[2] === 'new') {
+            $('#nav_item_New').addClass('active');
         }
     } else if (split[1] === 'home') {
         $('#nav_item_Dashboard').addClass('active');

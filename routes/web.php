@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Searchable\Search;
 
 /*
@@ -96,8 +97,4 @@ Route::post('user/new/{action}', function ($action) {
         ->updateOrInsert(
             ['id' => 1],
             ['allow_register' => $bool]);
-});
-
-Route::get('test', function () {
-    return view('layouts.blog');
 });
