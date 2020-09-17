@@ -177,8 +177,12 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
         $this->checkPermission('edit-post', $post);
+        $tags = implode(", ", $post->tags->map(function ($tag) {
+            return $tag->name;
+        })->toArray());
         return view('post.update', [
-            'post' => $post
+            'post' => $post,
+            'tags' => $tags
         ]);
     }
 
@@ -203,6 +207,14 @@ class PostController extends Controller
                 : ($_POST['img'] ? $_POST['img'] : ""),
         ]);
 
+        $post->tags()->detach($post->tags->map(function ($tag) { return $tag->id; })->toArray());
+        foreach (explode(',', $request->tags) as $tag) {
+            if (!empty($tag)) {
+                $tags = Tag::firstOrCreate(['name' => trim($tag)]);
+                $post->tags()->attach($tags->id);
+            }
+        }
+
         // Event trigger for sending mail
         event(new \App\Events\PostUpdated($post));
 
@@ -219,5 +231,4 @@ class PostController extends Controller
     {
         return Datatables::of(Post::query())->make(true);
     }
-
 }

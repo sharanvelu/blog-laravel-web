@@ -21,8 +21,9 @@ Route::get('stats', function () {
 });
 
 Route::group(['prefix' => 'search'], function () {
+    Route::post('date', 'PostController@BlogHomeByMonth');
     Route::get('{key}', function ($key) {
-        $searchResults_posts = (new Search())->registerModel(App\Post::class, 'post_title')
+        $searchResults_posts = (new Search())->registerModel(App\Post::class, ['post_title', 'post_description'])
             ->search($key);
         $searchResults_tags = (new Search())->registerModel(App\Tag::class, 'name')
             ->search($key);
@@ -32,7 +33,6 @@ Route::group(['prefix' => 'search'], function () {
             'tags' => $searchResults_tags
         ]);
     });
-    Route::post('date', 'PostController@BlogHomeByMonth');
 });
 
 //Blog Home and Single page
@@ -59,7 +59,7 @@ Route::group(['prefix' => 'comment'], function () {
     Route::post('get/name', 'CommentController@getName');
 });
 
-Route::group(['prefix' => 'role'], function () {
+Route::group(['middleware'=>'auth', 'prefix' => 'role'], function () {
     Route::get('list', 'RoleController@list');
     Route::get('create', 'RoleController@create');
     Route::get('assign', 'RoleController@assign');

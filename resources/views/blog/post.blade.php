@@ -36,10 +36,12 @@
         <i class="far fa-calendar-alt mr-2"></i>{{ date("F j, Y ", strtotime($post->created_at)) }}
     </p>
 
-    <!-- Post Image -->
-    <p><img src="{!! asset('storage/' . $post->image) !!}" alt="{{ $post->post_title }}-image"
-             class="img-fluid rounded">
-    </p>
+    @if(!empty($post->image))
+        <!-- Post Image -->
+        <p><img src="{!! asset('storage/' . $post->image) !!}" alt="{{ $post->post_title }}-image"
+                 class="img-fluid rounded">
+        </p>
+    @endif
 
     <!-- Tags -->
     @if( ($tags = $post->tags)->count() )

@@ -14,14 +14,6 @@ class Post extends JsonResource
      */
     public function toArray($request)
     {
-        $output_response = array();
-        if(is_iterable($this->resource)) {
-            foreach ($this->resource as $item) {
-                array_push($output_response, $item->load('posts')->posts->toArray());
-            }
-            return $output_response;
-        } else {
-            return [ $this->resource->load('posts')->posts->toArray() ];
-        }
+        return parent::toArray($request);
     }
 }

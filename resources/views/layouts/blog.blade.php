@@ -74,7 +74,7 @@
     <div class="row">
 
         <!-- Content Begins -->
-        <div class="col-lg-8 mb-5 mb-lg-0 overflow-hidden">
+        <div class="col-lg-8 mb-5 mb-lg-0">
             @yield('content')
         </div>
         <!-- Content Ends -->

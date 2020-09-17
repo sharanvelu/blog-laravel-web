@@ -37,6 +37,12 @@
         </div>
 
         <div class="form-group">
+            <label>Tags</label>
+            <input class="form-control" name="tags" placeholder="Enter Tags" id="tags"
+                   value="{{ $tags }}">
+        </div>
+
+        <div class="form-group">
             <label>Image</label>
             <input type="file" class="form-control" name="image"/>
             <input type="text" value="{{ $post->image }}" hidden name="img"/>
@@ -64,8 +70,8 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 
     <!-- Jquery and css for tags input -->
-    <script src="\blog/tags/jquery.tagsinput.js"></script>
-    <link href="\blog/tags/jquery.tagsinput.css" rel="stylesheet" type="text/css" />
+    <script src="\res/tags/jquery.tagsinput.js"></script>
+    <link href="\res/tags/jquery.tagsinput.css" rel="stylesheet" type="text/css" />
 
     <script>
         //Summer note WYSIWYG Editor Initiator
