@@ -1,0 +1,15 @@
+---
+application:
+  name: "blog-laravel"
+  project: "Sharan-first"
+  organization: "QoveryCommunity"
+databases:
+- type: "MYSQL"
+  name: "laravel"
+  version: "8.0"
+routers:
+- name: "main-blog-laravel"
+  routes:
+  - application_name: "blog-laravel"
+    paths:
+    - "/*"
